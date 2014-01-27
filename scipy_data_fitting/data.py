@@ -17,12 +17,12 @@ class Data:
 
     def __init__(self, name=None):
         self.name = name
-
-    @property
-    def name(self):
         """
         The identifier name for this object.
         """
+
+    @property
+    def name(self):
         return self._name
 
     @name.setter
