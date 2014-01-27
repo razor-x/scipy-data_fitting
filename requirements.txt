@@ -1,4 +1,5 @@
 matplotlib
+nose
 numpy
 pdoc
 scipy
