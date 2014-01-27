@@ -78,7 +78,7 @@ class Data:
 
     @scale.setter
     def scale(self, value):
-        self._scale = [ self.get_scale(v) for v in value ]
+        self._scale = tuple( self.get_scale(v) for v in value )
 
     @property
     def genfromtxt_args(self):

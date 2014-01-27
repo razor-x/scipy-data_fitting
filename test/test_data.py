@@ -61,7 +61,7 @@ class TestData():
     def test_scale_with_numbers_gives_numbers(self):
         data = Data()
         data.scale = (1, 2)
-        assert_equal(data.scale, (1, 2))
+        eq_(data.scale, (1, 2))
 
     def test_scale_with_strings_gives_numbers(self):
         data = Data()
