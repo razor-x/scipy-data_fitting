@@ -1,5 +1,6 @@
 import numpy
-import scipy.constants
+
+import scipy_data_fitting.core
 
 class Data:
     """
@@ -78,7 +79,7 @@ class Data:
 
     @scale.setter
     def scale(self, value):
-        self._scale = tuple( self.get_scale(v) for v in value )
+        self._scale = tuple( scipy_data_fitting.core.get_constant(v) for v in value )
 
     @property
     def genfromtxt_args(self):
@@ -123,17 +124,3 @@ class Data:
                 array[0] * self.scale[0],
                 array[1] * self.scale[1]
             ])
-
-    @staticmethod
-    def get_scale(value):
-        """
-        When `value` is a string, get the corresponding constant
-        from `scipy.constants`.
-        """
-        if type(value) is str:
-            if hasattr(scipy.constants, value):
-                return getattr(scipy.constants, value)
-            else:
-                return scipy.constants.physical_constants[value][0]
-        else:
-            return value
