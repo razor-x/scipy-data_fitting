@@ -5,4 +5,7 @@ release: docs
 	@python setup.py register sdist bdist_egg upload
 	@python setup.py upload_docs --upload-dir ./docs/scipy_data_fitting
 
-.PHONY: docs
+test:
+	@nosetests
+
+.PHONY: docs, test
