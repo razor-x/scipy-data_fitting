@@ -92,23 +92,27 @@ class Model:
         if not string: string = name
         self.symbols[name] = sympy.Symbol(string)
 
-    def add_symbols(self, names):
+    def add_symbols(self, *names):
         """
-        Pass a list of strings to add symbols to `scipy_data_fitting.Model.symbols`
+        Pass any number of strings to add symbols to `scipy_data_fitting.Model.symbols`
         using `scipy_data_fitting.Model.add_symbol`.
+
+        Example:
+
+            #!python
+            >>> model.add_symbols('x', 'y', 'z')
         """
         for name in names:
             self.add_symbol(name)
 
-    def get_symbols(self, symbols):
+    def get_symbols(self, *symbols):
         """
         Return a tuple of symbols by name.
 
         Example:
 
             #!python
-            >>> model.add_symbols(('x', 'y', 'z'))
-            >>> x, y, z = model.get_symbols(('x', 'y', 'z'))
+            >>> x, y, z = model.get_symbols('x', 'y', 'z')
         """
         return ( self.symbol(s) for s in symbols )
 

@@ -19,25 +19,23 @@ class TestModel():
 
     def test_add_symbols(self):
         model = Model()
-        symbols = ('x', 'y', 'z')
-        model.add_symbols(symbols)
+        model.add_symbols('x', 'y', 'z')
         eq_(len(model.symbols), 3)
         eq_(model.symbols['x'].name, 'x')
         eq_(model.symbols['y'].name, 'y')
 
     def test_get_symbols(self):
         model = Model()
-        symbols = ('x', 'y', 'z')
-        model.add_symbols(symbols)
-        x, y, z = model.get_symbols(symbols)
+        model.add_symbols('x', 'y', 'z')
+        x, y, z = model.get_symbols('x', 'y', 'z')
         eq_(x, model.symbols['x'])
         eq_(y, model.symbols['y'])
 
     def get_model(self):
         model = Model()
         model.test_symbols = ('x', 'y', 'z')
-        model.add_symbols(model.test_symbols)
-        x, y, z = model.get_symbols(model.test_symbols)
+        model.add_symbols(*model.test_symbols)
+        x, y, z = model.get_symbols(*model.test_symbols)
         model.expressions['exp'] = x + y
         model.replacements['rep_1'] = (x, y + z)
         model.replacements['rep_2'] = (z, x * x)
@@ -47,27 +45,27 @@ class TestModel():
 
     def test_replace(self):
         model = self.get_model()
-        x, y, z = model.get_symbols(model.test_symbols)
+        x, y, z = model.get_symbols(*model.test_symbols)
         eq_(model.replace(x + y, (x, y + z)), y + z + y)
 
     def test_replace_with_empty_replacements(self):
         model = self.get_model()
-        x, y, z = model.get_symbols(model.test_symbols)
+        x, y, z = model.get_symbols(*model.test_symbols)
         eq_(model.replace(x + y, []), x + y)
 
     def test_replace_using_expressions(self):
         model = self.get_model()
-        x, y, z = model.get_symbols(model.test_symbols)
+        x, y, z = model.get_symbols(*model.test_symbols)
         eq_(model.replace('exp', (x, y + z)), y + z + y)
 
     def test_replace_using_replacements(self):
         model = self.get_model()
-        x, y, z = model.get_symbols(model.test_symbols)
+        x, y, z = model.get_symbols(*model.test_symbols)
         eq_(model.replace('exp', 'rep_1'), y + z + y)
         eq_(model.replace('exp', ['rep_1', 'rep_2']), y + x * x + y)
 
     def test_replace_using_replacement_groups(self):
         model = self.get_model()
-        x, y, z = model.get_symbols(model.test_symbols)
+        x, y, z = model.get_symbols(*model.test_symbols)
         eq_(model.replace('exp', 'rep_g'), y + x * x + y)
         eq_(model.replace('exp', ['rep_g', 'rep_3']), y + y * z * y * z + y)
