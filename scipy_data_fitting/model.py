@@ -128,8 +128,8 @@ class Model:
         or a list of any combination of the following:
 
         - A replacement tuple as in `scipy_data_fitting.Model.replacements`.
-        - The key of a replacement in `scipy_data_fitting.Model.replacements`.
-        - The key of a replacement group in `scipy_data_fitting.Model.replacement_groups`.
+        - The name of a replacement in `scipy_data_fitting.Model.replacements`.
+        - The name of a replacement group in `scipy_data_fitting.Model.replacement_groups`.
 
         Examples:
 
