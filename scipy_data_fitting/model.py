@@ -180,7 +180,7 @@ class Model:
         # Otherwise make the replacement.
         return expression.replace(*replacements)
 
-    def lambdify(self, expression, symbols, **args):
+    def lambdify(self, expression, symbols, **kwargs):
         """
         Converts a SymPy expression into a function using `sympy.lambdify`.
 
@@ -211,4 +211,4 @@ class Model:
             else:
                 variables = (symbols, )
 
-        return sympy.lambdify(tuple(variables), expression, args)
+        return sympy.lambdify(tuple(variables), expression, **kwargs)
