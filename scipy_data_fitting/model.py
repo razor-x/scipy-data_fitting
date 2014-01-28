@@ -4,6 +4,20 @@ import sympy
 class Model:
     """
     A model organizes symbols, expressions and replacements rules by name.
+
+    Example:
+
+        #!python
+        >>> model = Model()
+        >>> model.add_symbols('y', 'x', 'm', 'b')
+        >>> y, m, x, b = model.get_symbols('y', 'x', 'm', 'b')
+        >>> model.expressions['line'] = y
+        >>> model.replacements['slope_intercept'] = (y, m * x + b)
+        >>> line = model.replace('line', 'slope_intercept')
+        m * x + b
+        >>> function = model.lambdify(line, ('m', 'x', 'b'))
+        >>> function(1, 2, 3)
+        5
     """
 
     def __init__(self, name=None):
