@@ -57,6 +57,7 @@ class TestModel():
         model = self.get_model()
         x, y, z = model.get_symbols(*model.test_symbols)
         eq_(model.replace('exp', (x, y + z)), y + z + y)
+        eq_(model.replace('exp', [(x, y + z), (y, x)]), x + z + x)
 
     def test_replace_using_replacements(self):
         model = self.get_model()

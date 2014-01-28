@@ -172,9 +172,10 @@ class Model:
             elif replacements in self.replacement_groups:
                 return self.replace(expression, self.replacement_groups[replacements])
 
-        # When replacements is a list of strings,
+        # When replacements is a list of strings or tuples,
         # Use reduce to make all the replacements.
-        if all(isinstance(item, str) for item in replacements):
+        if all(isinstance(item, str) for item in replacements) \
+        or all(isinstance(item, tuple) for item in replacements):
             return functools.reduce(self.replace, replacements, expression)
 
         # Otherwise make the replacement.
