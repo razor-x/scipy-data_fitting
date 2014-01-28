@@ -8,4 +8,4 @@ release: docs
 test:
 	@nosetests
 
-.PHONY: docs, test
+.PHONY: docs test
