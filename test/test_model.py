@@ -76,6 +76,12 @@ class TestModel():
         f = model.lambdify(x + y, (x, y))
         eq_(f(42, 10), 52)
 
+    def test_lambdify_with_args(self):
+        model = self.get_model()
+        x, y, z = model.get_symbols(*model.test_symbols)
+        f = model.lambdify(x + y, (x, y), implementation='numpy')
+        eq_(f(42, 10), 52)
+
     def test_lambdify_with_expressions(self):
         model = self.get_model()
         x, y, z = model.get_symbols(*model.test_symbols)

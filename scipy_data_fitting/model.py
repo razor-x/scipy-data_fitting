@@ -180,7 +180,7 @@ class Model:
         # Otherwise make the replacement.
         return expression.replace(*replacements)
 
-    def lambdify(self, expression, symbols, implementation='numpy'):
+    def lambdify(self, expression, symbols, **args):
         """
         Converts a SymPy expression into a function using `sympy.lambdify`.
 
@@ -192,6 +192,8 @@ class Model:
 
         - A SymPy symbol.
         - The name of a symbol in `scipy_data_fitting.Model.symbols`.
+
+        Additional keyword arguments are passed to `sympy.lambdify`.
         """
         if isinstance(expression, str):
             expression = self.expressions[expression]
@@ -209,4 +211,4 @@ class Model:
             else:
                 variables = (symbols, )
 
-        return sympy.lambdify(tuple(variables), expression, implementation)
+        return sympy.lambdify(tuple(variables), expression, args)
