@@ -138,9 +138,9 @@ class Fit:
 
         See also `scipy_data_fitting.Model.replace`.
 
-        This defaults to `[]`.
+        This defaults to `None`.
         """
-        if not hasattr(self, '_replacements'): self._replacements = []
+        if not hasattr(self, '_replacements'): self._replacements = None
         return self._replacements
 
     @replacements.setter
@@ -201,3 +201,171 @@ class Fit:
     @independent.setter
     def independent(self, value):
         self._independent = value
+
+    @property
+    def free_variables(self):
+        """
+        Free variables are useful when `scipy_data_fitting.Model.lambdify` is insufficient.
+
+        Any free variables will correspond to the first arguments of
+        `scipy_data_fitting.Fit.function`.
+
+        Any free variables must be resolved before attempting any fitting (see example).
+
+        This defaults to `[]`.
+
+        Example:
+
+            #!python
+            >>> fit.independent = {'symbol': 'x'}
+            >>> fit.parameters = [{'symbol': 'm', 'guess': 5}]
+            >>> fit.free_variables = ['t']
+            >>> f = fit.function # f(t, x, m)
+            >>> fit.function = lambda *args: f(2, *args)
+        """
+        if not hasattr(self, '_free_variables'): self._free_variables = []
+        return self._free_variables
+
+    @free_variables.setter
+    def free_variables(self, value):
+        self._free_variables = value
+
+    @property
+    def quantities(self):
+        """
+        Quantities will be computed from an expression using the fitted parameters.
+
+        The only required element in each dictionary is `expression`
+        which can be a SymPy expression, or an expression name
+        from `scipy_data_fitting.Model.expressions`.
+
+        The other keys are the same as the optional ones explained
+        in `scipy_data_fitting.Fit.independent`.
+
+        This defaults to `[]`.
+
+        Example:
+
+            #!python
+            [{'expression': 'tau', 'name': 'τ', 'prefix': 'milli', 'units': 'ms'}]
+        """
+        if not hasattr(self, '_quantities'): self._quantities = []
+        return self._quantities
+
+    @quantities.setter
+    def quantities(self, value):
+        self._quantities = value
+
+    @property
+    def constants(self):
+        """
+        Use constants to associate symbols in expressions with numerical values
+        when not specifying them as parameters.
+
+        Each key is a symbol name (as defined in `scipy_data_fitting.Model.symbols`).
+        Note that to use constants you must use `scipy_data_fitting.Model.symbols`,
+        since you cannot use SymPy symbol objects as keys.
+
+        The value is either numerical, or a string to use to lookup the constant
+        from [SciPy constants](http://docs.scipy.org/doc/scipy/reference/constants.html).
+
+        This defaults to `{}`.
+
+        Example:
+
+            #!python
+            {'c': 'c', 'g': 2, 'a': 'Bohr radius'}
+        """
+        if not hasattr(self, '_constants'): self._constants = {}
+        return self._constants
+
+    @constants.setter
+    def constants(self, value):
+        self._constants = value
+
+    @property
+    def parameters(self):
+        """
+        Each parameter is must contain the key `symbol`
+        and a key which is either `value` or `guess`.
+
+        `symbol` may be given as a SymPy symbol or the name of a symbol
+        defined in `scipy_data_fitting.Model.symbols`.
+
+        When a `guess` is given, that parameter is treated as a fitting parameter
+        and the `guess` is used as a starting point.
+
+        When `value` is given, the given value is fixed.
+
+        If a `prefix` is specified, the `value` or `guess` will
+        be multiplied by it before being used.
+
+        When `prefix` is given as a string, it will be converted to a number
+        from [SciPy constants](http://docs.scipy.org/doc/scipy/reference/constants.html).
+
+        When appearing in metadata, values will be scaled back by the prefix.
+
+        In the example below, the value for `L` used in computation will be `0.003`
+        but when used for display, it will appear as `3 mm`.
+
+        `name` and `units` are only for display purposes.
+
+        Other keys can be added freely and will be available
+        as metadata for the various output formats.
+
+        Example:
+
+            #!python
+            [
+                {'symbol': 'L', 'value': 3, 'prefix': 'milli', 'units': 'mm'},
+                {'symbol': 'b', 'guess': 3, 'prefix': 'milli', 'units': 'mm'},
+                {'symbol': 'm', 'guess': 3},
+            ]
+        """
+        if not hasattr(self, '_parameters'): self._parameters = []
+        return self._parameters
+
+    @parameters.setter
+    def parameters(self, value):
+        self._parameters = value
+
+    @property
+    def fitting_parameters(self):
+        """
+        Returns an array containing only elements of `scipy_data_fitting.Fit.parameters`
+        which do not specify a `value` key.
+        """
+        return [ v for v in self.parameters if not 'value' in v ]
+
+    @property
+    def fixed_parameters(self):
+        """
+        Returns an array containing only elements of `scipy_data_fitting.Fit.parameters`
+        which do specify a `value` key.
+        """
+        return [ v for v in self.parameters if 'value' in v ]
+
+    @property
+    def expression(self):
+        """
+        The SymPy expression that will be used to generate
+        the function that will be used for fitting.
+
+        Any replacements defined in `scipy_data_fitting.Fit.replacements`
+        are applied to the base expression before returning.
+
+        This always returns a SymPy expression, but it may be set using a string,
+        in which case the base expression will be looked up in `scipy_data_fitting.Model.expressions`.
+
+        Example:
+
+            #!python
+            >>> fit.expression = 'line'
+            >>> fit.expression # fit.model.expressions['line'] after replacements
+        """
+        return self.model.replace(self._expression, self.replacements)
+
+    @expression.setter
+    def expression(self, value):
+        self._expression = value
+
