@@ -69,3 +69,33 @@ class TestModel():
         x, y, z = model.get_symbols(*model.test_symbols)
         eq_(model.replace('exp', 'rep_g'), y + x * x + y)
         eq_(model.replace('exp', ['rep_g', 'rep_3']), y + y * z * y * z + y)
+
+    def test_lambdify(self):
+        model = self.get_model()
+        x, y, z = model.get_symbols(*model.test_symbols)
+        f = model.lambdify(x + y, (x, y))
+        eq_(f(42, 10), 52)
+
+    def test_lambdify_with_expressions(self):
+        model = self.get_model()
+        x, y, z = model.get_symbols(*model.test_symbols)
+        f = model.lambdify('exp', (x, y))
+        eq_(f(42, 10), 52)
+
+    def test_lambdify_with_symbols_as_strings(self):
+        model = self.get_model()
+        x, y, z = model.get_symbols(*model.test_symbols)
+        f = model.lambdify('exp', (x, 'y'))
+        eq_(f(42, 10), 52)
+
+    def test_lambdify_with_one_symbol(self):
+        model = self.get_model()
+        x, y, z = model.get_symbols(*model.test_symbols)
+        f = model.lambdify(x ** 2, x)
+        eq_(f(3), 9)
+
+    def test_lambdify_with_one_symbol_as_string(self):
+        model = self.get_model()
+        x, y, z = model.get_symbols(*model.test_symbols)
+        f = model.lambdify(x ** 2, 'x')
+        eq_(f(3), 9)

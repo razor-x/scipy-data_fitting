@@ -166,6 +166,33 @@ class Model:
         # Otherwise make the replacement.
         return expression.replace(*replacements)
 
-    @staticmethod
-    def lambdify(expression, variables, implementation='numpy'):
+    def lambdify(self, expression, symbols, implementation='numpy'):
+        """
+        Converts a SymPy expression into a function using `sympy.lambdify`.
+
+        `expression` can be a SymPy expression or the name of an expression
+        in `scipy_data_fitting.Model.expressions`.
+
+        `symbols` can be any of the following,
+        or a list of any combination of the following:
+
+        - A SymPy symbol.
+        - The name of a symbol in `scipy_data_fitting.Model.symbols`.
+        """
+        if isinstance(expression, str):
+            expression = self.expressions[expression]
+
+        if hasattr(symbols, '__iter__'):
+            variables = []
+            for s in symbols:
+                if isinstance(s, str):
+                    variables.append(self.symbol(s))
+                else:
+                    variables.append(s)
+        else:
+            if isinstance(symbols, str):
+                variables = (self.symbol(symbols), )
+            else:
+                variables = (symbols, )
+
         return sympy.lambdify(tuple(variables), expression, implementation)
