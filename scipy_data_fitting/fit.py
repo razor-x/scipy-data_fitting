@@ -260,23 +260,30 @@ class Fit:
     def constants(self):
         """
         Use constants to associate symbols in expressions with numerical values
-        when not specifying them as parameters.
+        when not specifying them as fixed parameters.
 
-        Each key is a symbol name (as defined in `scipy_data_fitting.Model.symbols`).
-        Note that to use constants you must use `scipy_data_fitting.Model.symbols`,
-        since you cannot use SymPy symbol objects as keys.
+        Each constant must contain the keys `symbol` and `value`.
 
-        The value is either numerical, or a string to use to lookup the constant
+        `symbol` may be given as a SymPy symbol or the name of a symbol
+        defined in `scipy_data_fitting.Model.symbols`.
+
+        If a `prefix` is specified, the value will be multiplied by it before being used.
+
+        The value (also prefix) is either numerical, or a string which will be converted to a number
         from [SciPy constants](http://docs.scipy.org/doc/scipy/reference/constants.html).
 
-        This defaults to `{}`.
+        This defaults to `[]`.
 
         Example:
 
             #!python
-            {'c': 'c', 'g': 2, 'a': 'Bohr radius'}
+            [
+                {'symbol': 'c', 'value': 'c'},
+                {'symbol': 'a', 'value': 'Bohr radius'},
+                {'symbol': 'M', 'value': 2, 'prefix': 'kilo'},
+            ]
         """
-        if not hasattr(self, '_constants'): self._constants = {}
+        if not hasattr(self, '_constants'): self._constants = []
         return self._constants
 
     @constants.setter
