@@ -376,3 +376,29 @@ class Fit:
     def expression(self, value):
         self._expression = value
 
+    @property
+    def all_variables(self):
+        """
+        A flat array of all symbols taken in order from the following:
+
+        1. `scipy_data_fitting.Fit.free_variables`
+        2. `scipy_data_fitting.Fit.independent`
+        3. `scipy_data_fitting.Fit.fitting_parameters`
+        4. `scipy_data_fitting.Fit.fixed_parameters`
+        5. `scipy_data_fitting.Fit.constants`
+        """
+        variables = []
+        variables.extend(self.free_variables)
+        variables.append(self.independent['symbol'])
+        variables.extend([ param['symbol'] for param in self.fitting_parameters ])
+        variables.extend([ param['symbol'] for param in self.fixed_parameters ])
+        variables.extend([ const['symbol'] for const in self.constants ])
+
+        symbols = []
+        for variable in variables:
+            if isinstance(variable, str):
+                symbols.append(self.model.symbol(variable))
+            else:
+                symbols.append(variable)
+
+        return symbols

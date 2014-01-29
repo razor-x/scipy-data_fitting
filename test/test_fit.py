@@ -32,12 +32,6 @@ class TestFit():
             data=self.get_data(),
             model=self.get_model())
 
-    def test_limits(self):
-        data = Data()
-        data.array = numpy.array([ [1, 2], [3, 4] ])
-        fit = Fit(data=data)
-        eq_(fit.limits, (-2, 2))
-
     def get_parameters(self):
         return [
             {'symbol': 'a', 'value': 2},
@@ -45,6 +39,12 @@ class TestFit():
             {'symbol': 'k', 'guess': 10},
             {'symbol': 'm', 'guess': 20},
         ]
+
+    def test_limits(self):
+        data = Data()
+        data.array = numpy.array([ [1, 2], [3, 4] ])
+        fit = Fit(data=data)
+        eq_(fit.limits, (-2, 2))
 
     def test_fitting_parameters(self):
         fit = Fit()
@@ -83,3 +83,21 @@ class TestFit():
         fit.replacements = (k, 1 / tau)
         expression = a * sympy.functions.exp(-t / tau)
         eq_(fit.expression, expression)
+
+    def test_all_variables(self):
+        fit = Fit(model=Model())
+        symbols = ('t', 'u', 'x', 'm', 'D', 'k', 'τ', 'a', 'b')
+        fit.model.add_symbols(*symbols)
+        fit.free_variables = ['t', 'u']
+        fit.independent = {'symbol': 'x'}
+        fit.parameters = [
+            {'symbol': 'm', 'guess': 2},
+            {'symbol': 'D', 'guess': 2},
+            {'symbol': fit.model.symbol('k'), 'value': 3},
+            {'symbol': 'τ', 'value': 4},
+        ]
+        fit.constants = [
+            {'symbol': 'a'},
+            {'symbol': 'b'},
+        ]
+        eq_(fit.all_variables, [fit.model.symbol(s) for s in symbols])
