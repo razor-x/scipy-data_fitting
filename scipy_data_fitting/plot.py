@@ -41,7 +41,7 @@ class Plot:
 
         Must contain the keys `data` and `fit`.
 
-        Options are passed as keyword arguments to [``][1] for the corresponding plot
+        Options are passed as keyword arguments to [`matplotlib.pyplot.plot`][1] for the corresponding plot
 
         Default:
 
@@ -50,6 +50,8 @@ class Plot:
                 'data': {'marker': '.', 'linestyle': 'None'},
                 'fit': {},
             }
+
+        [1]: http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
         """
         if not hasattr(self, '_options'):
             self._options = {
