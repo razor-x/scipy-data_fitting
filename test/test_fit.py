@@ -4,6 +4,7 @@ from scipy_data_fitting import Fit
 
 import numpy, sympy
 from nose.tools import *
+from numpy.testing import *
 
 class TestFit():
 
@@ -27,10 +28,17 @@ class TestFit():
         data.array = numpy.array([ linspace, function(linspace, 2, 3) ])
         return data
 
-    def get_fit(self):
-        return Fit('exponential_fit',
+    def get_fit_for_fitting(self):
+        fit = Fit('exponential_fit',
             data=self.get_data(),
             model=self.get_model())
+        fit.expression = 'exp'
+        fit.independent = {'symbol': 't'}
+        fit.parameters = [
+            {'symbol': 'a', 'guess': 2},
+            {'symbol': 'k', 'guess': 3},
+        ]
+        return fit
 
     def get_parameters(self):
         return [
@@ -57,19 +65,19 @@ class TestFit():
         eq_(fit.fixed_parameters, [{'symbol': 'a', 'value': 2}, {'symbol': 'b', 'value': 5}])
 
     def test_expression(self):
-        fit = self.get_fit()
+        fit = Fit(model=self.get_model())
         expression = fit.model.expressions['exp']
         fit.expression = expression
         eq_(fit.expression, expression)
 
     def test_expression_with_string(self):
-        fit = self.get_fit()
+        fit = Fit(model=self.get_model())
         expression = fit.model.expressions['exp']
         fit.expression = 'exp'
         eq_(fit.expression, expression)
 
     def test_expression_with_replacements(self):
-        fit = self.get_fit()
+        fit = Fit(model=self.get_model())
         fit.replacements = 'tau'
         fit.expression = fit.model.expressions['exp']
         a, t, tau = fit.model.get_symbols('a', 't', 'τ')
@@ -77,7 +85,7 @@ class TestFit():
         eq_(fit.expression, expression)
 
     def test_expression_with_string_and_replacements(self):
-        fit = self.get_fit()
+        fit = Fit(model=self.get_model())
         fit.expression = 'exp'
         a, k, t, tau = fit.model.get_symbols('a', 'k', 't', 'τ')
         fit.replacements = (k, 1 / tau)
@@ -115,3 +123,31 @@ class TestFit():
             {'symbol': 'c', 'value': 'Avogadro constant'},
         ]
         eq_(fit.fixed_values, (3000, 4, 10, 0.005, 6.02214129e+23))
+
+    def test_function(self):
+        fit = self.get_fit_for_fitting()
+        function = fit.function
+        linspace = fit.data.array[0]
+        values = fit.data.array[1]
+        assert_almost_equal(function(linspace, 2, 3), values)
+
+    def test_function_with_more_symbols(self):
+        fit = Fit()
+        fit.model = Model()
+        symbols = ('x', 'a', 'b', 'c', 'd', 'e', 'f')
+        fit.model.add_symbols(*symbols)
+        x, a, b, c, d, e, f = fit.model.get_symbols(*symbols)
+        fit.model.expressions['exp'] = a * f + b * e + x * c + d
+        fit.expression = 'exp'
+        fit.independent = {'symbol': 'x'}
+        fit.parameters = [
+            {'symbol': 'a', 'guess': 2},
+            {'symbol': 'b', 'guess': 3},
+            {'symbol': 'c', 'value': 4, 'prefix': 'kilo'},
+            {'symbol': 'd', 'value': 5},
+        ]
+        fit.constants = [
+            {'symbol': 'e', 'value': 10},
+            {'symbol': 'f', 'value': 12, 'prefix': 'milli'},
+        ]
+        eq_(fit.function(2, 4, 7), 8075.048)

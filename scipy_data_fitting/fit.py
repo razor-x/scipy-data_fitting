@@ -100,6 +100,27 @@ class Fit:
         self._options = value
 
     @property
+    def lambdify_options(self):
+        """
+        Dictionary of options which are passed as keyword arguments
+        to `scipy_data_fitting.Model.lambdify`.
+
+        Default:
+
+            #!python
+            {'modules': 'numpy'}
+        """
+        if not hasattr(self, '_lambdify_options'):
+            self._lambdify_options = {
+                'modules': 'numpy',
+            }
+        return self._lambdify_options
+
+    @lambdify_options.setter
+    def lambdify_options(self, value):
+        self._lambdify_options = value
+
+    @property
     def limits(self):
         """
         Limits to use for the independent variable whenever
@@ -421,3 +442,19 @@ class Fit:
         values.extend([ prefix(const) * constant(const['value']) for const in self.constants ])
 
         return tuple(values)
+
+    @property
+    def function(self):
+        """
+        The function used to perform the fit.
+
+        Its number of arguments and their order is determined by items 1, 2, and 3
+        as listed in `scipy_data_fitting.Fit.all_variables`.
+
+        It is a functional form of `scipy_data_fitting.Fit.expression` converted
+        using `scipy_data_fitting.Model.lambdify`.
+
+        See also `scipy_data_fitting.Fit.lambdify_options`.
+        """
+        function = self.model.lambdify(self.expression, self.all_variables, **self.lambdify_options)
+        return lambda *x: function(*(x + self.fixed_values))
