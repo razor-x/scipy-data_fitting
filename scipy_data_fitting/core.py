@@ -2,8 +2,9 @@ import scipy.constants
 
 def get_constant(value):
     """
-    When `value` is a string, get the corresponding constant
-    from `scipy.constants`.
+    When `value` is a string, get the corresponding constant from [`scipy.constants`][1].
+
+    [1]: http://docs.scipy.org/doc/scipy/reference/constants.html
     """
     if type(value) is str:
         if hasattr(scipy.constants, value):

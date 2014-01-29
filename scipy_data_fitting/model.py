@@ -100,8 +100,10 @@ class Model:
     def add_symbol(self, name, string=None):
         """
         Add a symbol with key `name` to `scipy_data_fitting.Model.symbols`.
-        Optionally, specify an alternative `string` to pass to `sympy.Symbol`,
+        Optionally, specify an alternative `string` to pass to [`sympy.Symbol`][1],
         otherwise `name` is used.
+
+        [1]: http://docs.sympy.org/dev/modules/core.html#id4
         """
         if not string: string = name
         self.symbols[name] = sympy.Symbol(string)
@@ -183,7 +185,7 @@ class Model:
 
     def lambdify(self, expression, symbols, **kwargs):
         """
-        Converts a SymPy expression into a function using `sympy.lambdify`.
+        Converts a SymPy expression into a function using [`sympy.lambdify`][1].
 
         `expression` can be a SymPy expression or the name of an expression
         in `scipy_data_fitting.Model.expressions`.
@@ -194,7 +196,9 @@ class Model:
         - A SymPy symbol.
         - The name of a symbol in `scipy_data_fitting.Model.symbols`.
 
-        Additional keyword arguments are passed to `sympy.lambdify`.
+        Additional keyword arguments are passed to [`sympy.lambdify`][1].
+
+        [1]: http://docs.sympy.org/latest/modules/utilities/lambdify.html#sympy.utilities.lambdify.lambdify
         """
         if isinstance(expression, str):
             expression = self.expressions[expression]

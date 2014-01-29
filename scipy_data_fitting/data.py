@@ -5,7 +5,7 @@ import scipy_data_fitting.core
 class Data:
     """
     Provides an interface to load data from files into
-    `numpy.Array` objects.
+    [`numpy.ndarray`][1] objects.
 
     Example:
 
@@ -14,6 +14,8 @@ class Data:
         >>> data.path = 'path/to/data.csv'
         >>> data.scale = (1, 'kilo')
         >>> data.array
+
+    [1]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
     """
 
     def __init__(self, name=None):
@@ -44,7 +46,7 @@ class Data:
     @property
     def array(self):
         """
-        Data as a `numpy.Array` in the form
+        Data as a [`numpy.ndarray`][1] in the form
 
             #!python
             [
@@ -53,6 +55,8 @@ class Data:
             ]
 
         The x and y values will be scaled according to `scipy_data_fitting.Data.scale`.
+
+        [1]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
         """
         if not hasattr(self, '_array'): self._array = self.load_data()
         return self._array
@@ -72,7 +76,9 @@ class Data:
 
         If a scale is specified as a string,
         it will treated as a named physical constant
-        and converted to the corresponding number using `scipy.constants`.
+        and converted to the corresponding number using [`scipy.constants`][1].
+
+        [1]: http://docs.scipy.org/doc/scipy/reference/constants.html
         """
         if not hasattr(self, '_scale'): self._scale = (1, 1)
         return self._scale
@@ -84,7 +90,7 @@ class Data:
     @property
     def genfromtxt_args(self):
         """
-        Passed as keyword arguments to `numpy.genfromtxt`
+        Passed as keyword arguments to [`numpy.genfromtxt`][1]
         when called by `scipy_data_fitting.Data.load_data`.
 
         Default:
@@ -95,6 +101,8 @@ class Data:
                 'delimiter': ',',
                 'usecols': (0 ,1),
             }
+
+        [1]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.genfromtxt.html
         """
         if not hasattr(self, '_genfromtxt_args'):
             self._genfromtxt_args = {
@@ -110,10 +118,13 @@ class Data:
 
     def load_data(self):
         """
-        Loads data from `scipy_data_fitting.Data.path` using `numpy.genfromtxt`
-        and returns a `numpy.Array`.
+        Loads data from `scipy_data_fitting.Data.path` using [`numpy.genfromtxt`][1]
+        and returns a [`numpy.ndarray`][2].
 
         Data is scaled according to `scipy_data_fitting.Data.scale`.
+
+        [1]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.genfromtxt.html
+        [2]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
         """
         array = numpy.genfromtxt(self.path, **self.genfromtxt_args)
 

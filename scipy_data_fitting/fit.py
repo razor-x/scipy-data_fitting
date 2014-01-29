@@ -184,8 +184,7 @@ class Fit:
         If a `prefix` is given (as a number or string), it will affect the scale when
         creating a line-space, plot, etc.
 
-        When `prefix` is given as a string, it will be converted to a number
-        from [SciPy constants](http://docs.scipy.org/doc/scipy/reference/constants.html).
+        When `prefix` is given as a string, it will be converted to a number from [`scipy.constants`][1].
 
         `name` and `units` are only for display purposes.
 
@@ -198,6 +197,8 @@ class Fit:
 
             #!python
             {'symbol': 'V', 'name': 'Voltage', 'prefix': 'kilo', 'units': 'kV'}
+
+        [1]: http://docs.scipy.org/doc/scipy/reference/constants.html
         """
         if not hasattr(self, '_dependent'): self._dependent = {}
         return self._dependent
@@ -299,8 +300,8 @@ class Fit:
 
         If a `prefix` is specified, the value will be multiplied by it before being used.
 
-        The value (also prefix) is either numerical, or a string which will be converted to a number
-        from [SciPy constants](http://docs.scipy.org/doc/scipy/reference/constants.html).
+        The value (also prefix) is either numerical,
+        or a string which will be converted to a number from [`scipy.constants`][1].
 
         This defaults to `[]`.
 
@@ -312,6 +313,8 @@ class Fit:
                 {'symbol': 'a', 'value': 'Bohr radius'},
                 {'symbol': 'M', 'value': 2, 'prefix': 'kilo'},
             ]
+
+        [1]: http://docs.scipy.org/doc/scipy/reference/constants.html
         """
         if not hasattr(self, '_constants'): self._constants = []
         return self._constants
@@ -337,8 +340,7 @@ class Fit:
         If a `prefix` is specified, the `value` or `guess` will
         be multiplied by it before being used.
 
-        When `prefix` is given as a string, it will be converted to a number
-        from [SciPy constants](http://docs.scipy.org/doc/scipy/reference/constants.html).
+        When `prefix` is given as a string, it will be converted to a number from [`scipy.constants`][1].
 
         When appearing in metadata, values will be scaled back by the prefix.
 
@@ -358,6 +360,8 @@ class Fit:
                 {'symbol': 'b', 'guess': 3, 'prefix': 'milli', 'units': 'mm'},
                 {'symbol': 'm', 'guess': 3},
             ]
+
+        [1]: http://docs.scipy.org/doc/scipy/reference/constants.html
         """
         if not hasattr(self, '_parameters'): self._parameters = []
         return self._parameters
@@ -608,8 +612,8 @@ class Fit:
 
         `data` is just `scipy_data_fitting.Data.array`.
 
-        `fit` is a two row numpy array, the first row values correspond
-        to the independent variable and are generated using `numpy.linspace`.
+        `fit` is a two row [`numpy.ndarray`][1], the first row values correspond
+        to the independent variable and are generated using [`numpy.linspace`][2].
         The second row are the values of `scipy_data_fitting.Fit.fitted_function`
         evaluated on the linspace.
 
@@ -617,7 +621,10 @@ class Fit:
         inverse prefix if given in `scipy_data_fitting.Fit.independent`
         or `scipy_data_fitting.Fit.dependent`.
 
-        Any keyword arguments are passed to `numpy.linspace`.
+        Any keyword arguments are passed to [`numpy.linspace`][2].
+
+        [1]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
+        [2]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.linspace.html
         """
         prefix = scipy_data_fitting.core.prefix_factor
         scale_array = numpy.array([
