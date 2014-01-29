@@ -13,7 +13,7 @@ try:
 except subprocess.CalledProcessError:
     pandoc = None
 
-if pandoc:
+if pandoc and os.path.exists('README.md'):
     os.system('pandoc -s README.md -t rst -o README.txt')
     long_description = open('README.txt').read()
 
