@@ -262,6 +262,10 @@ class Fit:
         which can be a SymPy expression, or an expression name
         from `scipy_data_fitting.Model.expressions`.
 
+        The expressions must not contain the symbols corresponding to
+        `scipy_data_fitting.Fit.free_variables`, scipy_data_fitting.Fit.independent`,
+        or `scipy_data_fitting.Fit.dependent`.
+
         The other keys are the same as the optional ones explained
         in `scipy_data_fitting.Fit.independent`.
 
@@ -457,6 +461,8 @@ class Fit:
         See also `scipy_data_fitting.Fit.lambdify_options`.
 
         Note that the function will be generated on each call unless this is set manually.
+
+        All values passed to this function will be multiplied by their corresponding prefix.
         """
         if hasattr(self,'_function'): return self._function
         function = self.model.lambdify(self.expression, self.all_variables, **self.lambdify_options)
