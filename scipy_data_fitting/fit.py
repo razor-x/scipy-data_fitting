@@ -401,4 +401,4 @@ class Fit:
             else:
                 symbols.append(variable)
 
-        return symbols
+        return tuple(symbols)

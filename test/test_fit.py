@@ -100,4 +100,4 @@ class TestFit():
             {'symbol': 'a'},
             {'symbol': 'b'},
         ]
-        eq_(fit.all_variables, [fit.model.symbol(s) for s in symbols])
+        eq_(fit.all_variables, tuple( fit.model.symbol(s) for s in symbols ))
