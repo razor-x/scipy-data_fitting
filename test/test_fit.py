@@ -155,3 +155,13 @@ class TestFit():
     def test_curve_fit(self):
         fit = self.get_fit_for_fitting()
         assert_almost_equal(fit.curve_fit[0], [2, 3])
+
+    def test_fitting_paramters(self):
+        fit = self.get_fit_for_fitting()
+        assert_almost_equal(fit.fitted_parameters, [2, 3])
+
+    def test_fitted_function(self):
+        fit = self.get_fit_for_fitting()
+        linspace = fit.data.array[0]
+        values = fit.data.array[1]
+        assert_almost_equal(fit.fitted_function(linspace), values)

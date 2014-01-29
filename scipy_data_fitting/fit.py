@@ -487,3 +487,32 @@ class Fit:
                 function, independent_values, dependent_values, p0, **options)
 
         return self._curve_fit
+
+    @property
+    def fitted_parameters(self):
+        """
+        A list of fitted values for the `scipy_data_fitting.Fit.fitting_parameters`.
+        """
+        if hasattr(self,'_fitted_parameters'): return self._fitted_parameters
+        return self.curve_fit[0]
+
+    @property
+    def fitted_function(self):
+        """
+        A function of the single independent variable after
+        partially evaluating `scipy_data_fitting.Fit.function` at
+        the `scipy_data_fitting.Fit.fitted_parameters`.
+        """
+        function = self.function
+        fitted_parameters = self.fitted_parameters
+        return lambda x: function(x, *fitted_parameters)
+
+    def clear_fit(self):
+        """
+        For performance, the results of the curve fit are saved in
+        `scipy_data_fitting.Fit._curve_fit` and `scipy_data_fitting.Fit._fitted_parameters`.
+
+        This clears these attributes.
+        """
+        del self._curve_fit
+        del self._fitted_parameters
