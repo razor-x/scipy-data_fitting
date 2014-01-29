@@ -263,7 +263,7 @@ class Fit:
         from `scipy_data_fitting.Model.expressions`.
 
         The expressions must not contain the symbols corresponding to
-        `scipy_data_fitting.Fit.free_variables`, scipy_data_fitting.Fit.independent`,
+        `scipy_data_fitting.Fit.free_variables`, `scipy_data_fitting.Fit.independent`,
         or `scipy_data_fitting.Fit.dependent`.
 
         The other keys are the same as the optional ones explained
