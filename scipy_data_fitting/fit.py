@@ -339,7 +339,7 @@ class Fit:
     @property
     def fitting_parameters(self):
         """
-        Returns an array containing only elements of `scipy_data_fitting.Fit.parameters`
+        Returns a list containing only elements of `scipy_data_fitting.Fit.parameters`
         which do not specify a `value` key.
         """
         return [ v for v in self.parameters if not 'value' in v ]
@@ -347,7 +347,7 @@ class Fit:
     @property
     def fixed_parameters(self):
         """
-        Returns an array containing only elements of `scipy_data_fitting.Fit.parameters`
+        Returns a list containing only elements of `scipy_data_fitting.Fit.parameters`
         which do specify a `value` key.
         """
         return [ v for v in self.parameters if 'value' in v ]
@@ -379,7 +379,7 @@ class Fit:
     @property
     def all_variables(self):
         """
-        A flat array of all symbols taken in order from the following:
+        A flat tuple of all symbols taken in order from the following:
 
         1. `scipy_data_fitting.Fit.free_variables`
         2. `scipy_data_fitting.Fit.independent`
