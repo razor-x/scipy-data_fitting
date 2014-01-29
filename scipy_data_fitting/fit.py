@@ -468,6 +468,12 @@ class Fit:
 
     @property
     def curve_fit(self):
+        """
+        Fits `scipy_data_fitting.Fit.function` to the data and returns
+        the output from the specified curve fit function.
+
+        See also `scipy_data_fitting.Fit.options`.
+        """
         if not hasattr(self,'_curve_fit'):
             prefix = scipy_data_fitting.core.prefix_factor
             options = self.options.copy()
