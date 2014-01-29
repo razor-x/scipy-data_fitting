@@ -57,7 +57,7 @@ class Fit:
 
         Will default to `scipy_data_fitting.Fit.name`.
         """
-        if not hasattr(self, '_description'): self._description = self.name
+        if not hasattr(self, '_description'): return self.name
         return self._description
 
     @description.setter
