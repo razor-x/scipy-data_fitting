@@ -39,9 +39,14 @@ class Plot:
         """
         Dictionary of options which affect the plot style.
 
-        Must contain the keys `data` and `fit`.
+        Must contain the keys `data` and `fit` whose values are dictionaries.
 
-        Options are passed as keyword arguments to [`matplotlib.pyplot.plot`][1] for the corresponding plot
+        Options given in `data` and `fit` are passed as keyword arguments
+        to [`matplotlib.pyplot.plot`][1] for the corresponding plot.
+
+        Other options:
+
+        - `points` is the number of points to use when generating the fit plot.
 
         Default:
 
@@ -49,6 +54,7 @@ class Plot:
             {
                 'data': {'marker': '.', 'linestyle': 'None'},
                 'fit': {},
+                'points': 300,
             }
 
         [1]: http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.plot
@@ -57,6 +63,7 @@ class Plot:
             self._options = {
                 'data': {'marker': '.', 'linestyle': 'None'},
                 'fit': {},
+                'points': 300,
             }
         return self._options
 
@@ -86,7 +93,7 @@ class Plot:
         """
         if not hasattr(self, '_plot'):
             plot = self.figure.add_subplot(111)
-            pointspace = self.fit.pointspace()
+            pointspace = self.fit.pointspace(num=self.options['points'])
 
             plot.plot(*pointspace['fit'], **self.options['fit'])
             plot.plot(*pointspace['data'], **self.options['data'])
