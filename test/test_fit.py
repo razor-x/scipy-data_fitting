@@ -195,3 +195,21 @@ class TestFit():
             {'symbol': 'k', 'guess': 20, 'value': 3},
         ]
         eq_(fit.computed_fitting_parameters, computed_fitting_parameters)
+
+    def test_pointspace(self):
+        fit = self.get_fit_for_fitting()
+        pointspace = fit.pointspace()
+        linspace = numpy.linspace(fit.limits[0], fit.limits[1])
+        assert isinstance(pointspace['data'], numpy.ndarray)
+        assert isinstance(pointspace['fit'], numpy.ndarray)
+        assert_almost_equal(pointspace['data'], fit.data.array)
+        assert_almost_equal(pointspace['fit'], [linspace, fit.fitted_function(linspace)])
+
+    def test_pointspace_with_scale(self):
+        fit = self.get_fit_for_fitting()
+        fit.independent['prefix'] = 100
+        fit.dependent['prefix'] = 2
+        pointspace = fit.pointspace()
+        linspace = numpy.linspace(fit.limits[0], fit.limits[1])
+        assert_almost_equal(pointspace['data'], [fit.data.array[0] / 100, fit.data.array[1] / 2])
+        assert_almost_equal(pointspace['fit'], [linspace / 100, fit.fitted_function(linspace) / 2])

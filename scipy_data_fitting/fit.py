@@ -601,3 +601,32 @@ class Fit:
           'fixed_parameters': self.fixed_parameters,
           'fitted_parameters': self.computed_fitting_parameters,
         }
+
+    def pointspace(self, **kwargs):
+        """
+        Returns a dictionary with the keys `data` and `fit`.
+
+        `data` is just `scipy_data_fitting.Data.array`.
+
+        `fit` is a two row numpy array, the first row values correspond
+        to the independent variable and are generated using `numpy.linspace`.
+        The second row are the values of `scipy_data_fitting.Fit.fitted_function`
+        evaluated on the linspace.
+
+        For both `fit` and `data`, each row will be scaled by the corresponding
+        inverse prefix if given in `scipy_data_fitting.Fit.independent`
+        or `scipy_data_fitting.Fit.dependent`.
+
+        Any keyword arguments are passed to `numpy.linspace`.
+        """
+        prefix = scipy_data_fitting.core.prefix_factor
+        scale_array = numpy.array([
+            [prefix(self.independent)**(-1)],
+            [prefix(self.dependent)**(-1)]
+        ])
+
+        linspace = numpy.linspace(self.limits[0], self.limits[1], **kwargs)
+        return {
+          'data': self.data.array * scale_array,
+          'fit': numpy.array([linspace, self.fitted_function(linspace)]) * scale_array
+        }
