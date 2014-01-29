@@ -19,7 +19,7 @@ if pandoc:
 
 setup(
     name = 'scipy-data_fitting',
-    version = '0.0.1a1',
+    version = '0.0.1',
     author = 'Evan Sosenko',
     author_email = 'razorx@evansosenko.com',
     packages = ['scipy_data_fitting'],
