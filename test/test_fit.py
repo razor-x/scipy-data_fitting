@@ -101,3 +101,17 @@ class TestFit():
             {'symbol': 'b'},
         ]
         eq_(fit.all_variables, tuple( fit.model.symbol(s) for s in symbols ))
+
+    def test_fixed_values(self):
+        fit = Fit(model=Model())
+        fit.parameters = [
+            {'symbol': 'D', 'guess': 2},
+            {'symbol': 'k', 'value': 3, 'prefix': 'kilo'},
+            {'symbol': 'm', 'value': 4},
+        ]
+        fit.constants = [
+            {'symbol': 'a', 'value': 10},
+            {'symbol': 'b', 'value': 5, 'prefix': 'milli'},
+            {'symbol': 'c', 'value': 'Avogadro constant'},
+        ]
+        eq_(fit.fixed_values, (3000, 4, 10, 0.005, 6.02214129e+23))

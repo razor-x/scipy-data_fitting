@@ -4,6 +4,8 @@ import scipy.constants
 import scipy.optimize
 import sympy
 
+import scipy_data_fitting.core
+
 class Fit:
     """
     Although not required at instantiation,
@@ -402,3 +404,20 @@ class Fit:
                 symbols.append(variable)
 
         return tuple(symbols)
+
+    @property
+    def fixed_values(self):
+        """
+        A flat tuple of all values corresponding to `scipy_data_fitting.Fit.fixed_parameters`
+        and `scipy_data_fitting.Fit.constants` after applying any prefixes.
+
+        The values mimic the order of those lists.
+        """
+        constant = scipy_data_fitting.core.get_constant
+        prefix = scipy_data_fitting.core.prefix_factor
+
+        values = []
+        values.extend([ prefix(param) * param['value'] for param in self.fixed_parameters ])
+        values.extend([ prefix(const) * constant(const['value']) for const in self.constants ])
+
+        return tuple(values)
