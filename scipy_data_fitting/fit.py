@@ -630,3 +630,29 @@ class Fit:
           'data': self.data.array * scale_array,
           'fit': numpy.array([linspace, self.fitted_function(linspace)]) * scale_array
         }
+
+    def to_json(self, path, points=50):
+        """
+        Write the results of the fit to a json file at `path`.
+
+        `points` will define the length of the `fit` array.
+
+        The json object has the form
+
+            #!text
+            {
+                'data': [ [x1, y1], [x2, y2], ... ],
+                'fit': [ [x1, y1], [x2, y2], ... ],
+                'meta': self.metadata
+            }
+        """
+        pointspace = self.pointspace(num=points)
+        fit_points = numpy.dstack(pointspace['fit'])[0]
+        data_points = numpy.dstack(pointspace['data'])[0]
+
+        fit = [ [ point[0],  point[1] ] for point in fit_points ]
+        data = [ [ point[0],  point[1] ] for point in data_points ]
+
+        f = open(path, 'w')
+        json.dump({'data': data, 'fit': fit, 'meta': self.metadata}, f)
+        f.close
