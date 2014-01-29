@@ -165,3 +165,21 @@ class TestFit():
         linspace = fit.data.array[0]
         values = fit.data.array[1]
         assert_almost_equal(fit.fitted_function(linspace), values)
+
+    def test_computed_quantities(self):
+        fit = self.get_fit_for_fitting()
+        fit.model.expressions['k'] = fit.model.symbol('k')
+        fit.replacements = 'tau'
+        fit.parameters = [
+            {'symbol': 'a', 'guess': 10},
+            {'symbol': 'τ', 'guess': 0.3},
+        ]
+        fit.quantities = [
+            {'expression': 'k', 'name': 'konstant'},
+            {'expression': 'k', 'prefix': 'milli', 'units': 'mm'},
+        ]
+        computed_quantities = [
+            {'value': 3.0, 'name': 'konstant'},
+            {'value': 3000, 'prefix': 'milli', 'units': 'mm'},
+        ]
+        eq_(fit.computed_quantities, computed_quantities)

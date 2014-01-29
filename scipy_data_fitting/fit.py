@@ -527,3 +527,32 @@ class Fit:
         """
         del self._curve_fit
         del self._fitted_parameters
+
+    @property
+    def computed_quantities(self):
+        """
+        A list of the quantities defined in `scipy_data_fitting.Fit.quantities`
+        evaluated with `scipy_data_fitting.Fit.fitted_parameters`.
+
+        The list is identical to what is set with `scipy_data_fitting.Fit.quantities`
+        but in each dictionary, the key `expression` is removed,
+        and the key `value` is added with the value of the quantity.
+
+        The quantity is computed using values multiplied by their prefix as in
+        `scipy_data_fitting.Fit.function`. Once computed, the reported value is
+        scaled by the inverse prefix.
+        """
+        return [ self.compute_quantity(quantity) for quantity in self.quantities ]
+
+    def compute_quantity(self, quantity):
+        """
+        Processes a single quantity as described and used
+        in `scipy_data_fitting.Fit.computed_quantities`.
+        """
+        quantity = quantity.copy()
+        prefix = scipy_data_fitting.core.prefix_factor
+        expression = self.model.replace(quantity.pop('expression'), self.replacements)
+        variables = self.all_variables[len(self.free_variables) + 1:]
+        function = self.model.lambdify(expression, variables, **self.lambdify_options)
+        quantity['value'] = function(*(self.fitted_parameters + self.fixed_values)) * prefix(quantity)**(-1)
+        return quantity
