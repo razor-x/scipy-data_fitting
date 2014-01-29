@@ -158,7 +158,7 @@ class TestFit():
 
     def test_fitting_paramters(self):
         fit = self.get_fit_for_fitting()
-        assert_almost_equal(fit.fitted_parameters, [2, 3])
+        assert_almost_equal(fit.fitted_parameters, (2, 3))
 
     def test_fitted_function(self):
         fit = self.get_fit_for_fitting()

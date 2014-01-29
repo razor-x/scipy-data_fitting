@@ -497,10 +497,15 @@ class Fit:
     @property
     def fitted_parameters(self):
         """
-        A list of fitted values for the `scipy_data_fitting.Fit.fitting_parameters`.
+        A tuple of fitted values for the `scipy_data_fitting.Fit.fitting_parameters`.
+
+        The values in this tuple are not scaled by the prefix,
+        as they are passed back to `scipy_data_fitting.Fit.function`
+        for `scipy_data_fitting.Fit.function`,
+        e.g. in most standard use cases these would be the SI values.
         """
         if hasattr(self,'_fitted_parameters'): return self._fitted_parameters
-        return self.curve_fit[0]
+        return tuple(self.curve_fit[0])
 
     @property
     def fitted_function(self):
