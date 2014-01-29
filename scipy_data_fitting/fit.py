@@ -192,11 +192,14 @@ class Fit:
         Other keys can be added freely and will be available
         as metadata for the various output formats.
 
+        Defaults to `{}`.
+
         Example:
 
             #!python
             {'symbol': 'V', 'name': 'Voltage', 'prefix': 'kilo', 'units': 'kV'}
         """
+        if not hasattr(self, '_dependent'): self._dependent = {}
         return self._dependent
 
     @dependent.setter
