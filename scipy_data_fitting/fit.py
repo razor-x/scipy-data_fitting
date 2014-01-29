@@ -341,7 +341,7 @@ class Fit:
     @property
     def fitting_parameters(self):
         """
-        Returns a list containing only elements of `scipy_data_fitting.Fit.parameters`
+        A list containing only elements of `scipy_data_fitting.Fit.parameters`
         which do not specify a `value` key.
         """
         return [ v for v in self.parameters if not 'value' in v ]
@@ -349,7 +349,7 @@ class Fit:
     @property
     def fixed_parameters(self):
         """
-        Returns a list containing only elements of `scipy_data_fitting.Fit.parameters`
+        A list containing only elements of `scipy_data_fitting.Fit.parameters`
         which do specify a `value` key.
         """
         return [ v for v in self.parameters if 'value' in v ]

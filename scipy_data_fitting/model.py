@@ -121,7 +121,7 @@ class Model:
 
     def get_symbols(self, *symbols):
         """
-        Return a tuple of symbols by name.
+        A tuple of symbols by name.
 
         Example:
 
