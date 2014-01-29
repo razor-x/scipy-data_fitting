@@ -183,3 +183,15 @@ class TestFit():
             {'value': 3000, 'prefix': 'milli', 'units': 'mm'},
         ]
         eq_(fit.computed_quantities, computed_quantities)
+
+    def test_computed_fitting_parameters(self):
+        fit = self.get_fit_for_fitting()
+        fit.parameters = [
+            {'symbol': 'a', 'guess': 10, 'prefix': 'kilo', 'units': 'km'},
+            {'symbol': 'k', 'guess': 20},
+        ]
+        computed_fitting_parameters = [
+            {'symbol': 'a', 'guess': 10, 'prefix': 'kilo', 'units': 'km', 'value': 0.002},
+            {'symbol': 'k', 'guess': 20, 'value': 3},
+        ]
+        eq_(fit.computed_fitting_parameters, computed_fitting_parameters)

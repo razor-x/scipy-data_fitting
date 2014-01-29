@@ -559,3 +559,45 @@ class Fit:
         function = self.model.lambdify(expression, variables, **self.lambdify_options)
         quantity['value'] = function(*(self.fitted_parameters + self.fixed_values)) * prefix(quantity)**(-1)
         return quantity
+
+    @property
+    def computed_fitting_parameters(self):
+        """
+        A list identical to what is set with `scipy_data_fitting.Fit.fitting_parameters`,
+        but in each dictionary, the key `value` is added with the fitted value of the quantity.
+        The reported value is scaled by the inverse prefix.
+        """
+        prefix = scipy_data_fitting.core.prefix_factor
+        fitted_parameters = []
+        for (i, v) in enumerate(self.fitting_parameters):
+            param = v.copy()
+            param['value'] = self.fitted_parameters[i] * prefix(param)**(-1)
+            fitted_parameters.append(param)
+
+        return fitted_parameters
+
+    @property
+    def metadata(self):
+        """
+        A dictionary which summarizes the results of the fit:
+
+            #!python
+            {
+                'name': self.name,
+                'description': self.description,
+                'independent': self.independent,
+                'dependent': self.dependent,
+                'quantities': self.computed_quantities,
+                'fixed_parameters': self.fixed_parameters,
+                'fitted_parameters': self.computed_fitting_parameters,
+            }
+        """
+        return {
+          'name': self.name,
+          'description': self.description,
+          'independent': self.independent,
+          'dependent': self.dependent,
+          'quantities': self.computed_quantities,
+          'fixed_parameters': self.fixed_parameters,
+          'fitted_parameters': self.computed_fitting_parameters,
+        }
