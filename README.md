@@ -58,6 +58,14 @@ Generate documentation with pdoc by running
 $ make docs
 ````
 
+### Tests
+
+Run the tests with
+
+````bash
+$ make tests
+````
+
 ## License
 
 This code is licensed under the MIT license.
