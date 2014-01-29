@@ -1,6 +1,5 @@
 import json
 import numpy
-import scipy.constants
 import scipy.optimize
 import sympy
 
@@ -73,9 +72,10 @@ class Fit:
         Must contain the key `fit_function` which must be set to
         the function that will perform the fit.
 
-        The default options use `scipy.optimize.curve_fit`
+        The default options use `scipy.optimize.curve_fit`,
         and this class will assume any other specified function
-        will return an object of the same format.
+        will receive the first four arguments in the same format as that
+        and return an object of the same format that.
 
         All other options are passed as keyword arguments
         to the curve fitting function.
@@ -455,6 +455,29 @@ class Fit:
         using `scipy_data_fitting.Model.lambdify`.
 
         See also `scipy_data_fitting.Fit.lambdify_options`.
+
+        Note that the function will be generated on each call unless this is set manually.
         """
+        if hasattr(self,'_function'): return self._function
         function = self.model.lambdify(self.expression, self.all_variables, **self.lambdify_options)
         return lambda *x: function(*(x + self.fixed_values))
+
+    @function.setter
+    def function(self, value):
+        self._function = value
+
+    @property
+    def curve_fit(self):
+        if not hasattr(self,'_curve_fit'):
+            prefix = scipy_data_fitting.core.prefix_factor
+            options = self.options.copy()
+            fit_function = options.pop('fit_function')
+            function = self.function
+            independent_values = self.data.array[0]
+            dependent_values = self.data.array[1]
+            p0 = [ prefix(param) * param['guess'] for param in self.fitting_parameters ]
+
+            self._curve_fit = fit_function(
+                function, independent_values, dependent_values, p0, **options)
+
+        return self._curve_fit

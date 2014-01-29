@@ -35,8 +35,8 @@ class TestFit():
         fit.expression = 'exp'
         fit.independent = {'symbol': 't'}
         fit.parameters = [
-            {'symbol': 'a', 'guess': 2},
-            {'symbol': 'k', 'guess': 3},
+            {'symbol': 'a', 'guess': 10},
+            {'symbol': 'k', 'guess': 20},
         ]
         return fit
 
@@ -151,3 +151,7 @@ class TestFit():
             {'symbol': 'f', 'value': 12, 'prefix': 'milli'},
         ]
         eq_(fit.function(2, 4, 7), 8075.048)
+
+    def test_curve_fit(self):
+        fit = self.get_fit_for_fitting()
+        assert_almost_equal(fit.curve_fit[0], [2, 3])
