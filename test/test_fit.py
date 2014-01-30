@@ -1,10 +1,12 @@
+import numpy
+import sympy
+
+from nose.tools import *
+from numpy.testing import *
+
 from scipy_data_fitting import Data
 from scipy_data_fitting import Model
 from scipy_data_fitting import Fit
-
-import numpy, sympy
-from nose.tools import *
-from numpy.testing import *
 
 class TestFit():
 

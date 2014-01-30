@@ -1,6 +1,6 @@
-from scipy_data_fitting import Model
-
 from nose.tools import *
+
+from scipy_data_fitting import Model
 
 class TestModel():
 

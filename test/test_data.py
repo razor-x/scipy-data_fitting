@@ -1,8 +1,11 @@
-from scipy_data_fitting import Data
+import csv
+import os
+import tempfile
 
-import csv, os, tempfile
 from nose.tools import *
 from numpy.testing import *
+
+from scipy_data_fitting import Data
 
 class TestData():
 

@@ -1,6 +1,7 @@
-from scipy_data_fitting import Plot
+import os
+import test_fit
 
-import os, test_fit
+from scipy_data_fitting import Plot
 
 class TestPlot():
 
