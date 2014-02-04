@@ -12,6 +12,22 @@ class Fit:
     Although not required at instantiation,
     `scipy_data_fitting.Fit.data` and `scipy_data_fitting.Fit.model`
     must be set to use most of this class.
+
+    Example:
+
+        #!python
+        >>> data = Data()
+        >>> model = Model()
+        >>> # set up the data and model objects
+        >>> fit = Fit('linear', data=data, model=model)
+        >>> fit.expression = 'line'
+        >>> fit.independent = {'symbol': 't', 'name': 'Time', 'units': 's'}
+        >>> fit.dependent = {'name': 'Distance', 'units': 'm'}
+        >>> fit.parameters = [
+                {'symbol': 'x_0', 'value': 1, 'units': 'm'},
+                {'symbol': 'v', 'guess': 1, 'units': 'm/s'},
+            ]
+        >>>  fit.to_json(fit.name + '.json')
     """
 
     def __init__(self, name=None, data=None, model=None):

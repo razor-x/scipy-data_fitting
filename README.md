@@ -31,7 +31,7 @@ fit.independent = {'symbol': 't', 'name': 'Time', 'units': 's'}
 fit.dependent = {'name': 'Distance', 'units': 'm'}
 fit.parameters = [
     {'symbol': 'x_0', 'value': 1, 'units': 'm'},
-    {'symbol': 'v', 'guess': 1, 'units': 'm/s' },
+    {'symbol': 'v', 'guess': 1, 'units': 'm/s'},
 ]
 
 # Save the fit result to a json file.
