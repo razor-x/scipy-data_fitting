@@ -9,6 +9,11 @@ Documentation generated from source with
 for the latest version is hosted at
 [packages.python.org/scipy-data_fitting/](http://packages.python.org/scipy-data_fitting/).
 
+To get started quickly, check out the
+[examples](https://github.com/razor-x/scipy-data_fitting/tree/master/examples).
+
+Then, refer to the source documentation for details on how to use each class.
+
 ## Basic usage
 
 ````python
