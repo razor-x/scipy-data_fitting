@@ -19,7 +19,7 @@ if pandoc and os.path.exists('README.md'):
 
 setup(
     name = 'scipy-data_fitting',
-    version = '0.0.2',
+    version = '0.0.3',
     author = 'Evan Sosenko',
     author_email = 'razorx@evansosenko.com',
     packages = ['scipy_data_fitting'],
