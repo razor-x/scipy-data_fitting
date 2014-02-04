@@ -1,6 +1,6 @@
 # Changelog
 
-## HEAD
+## 0.0.4
 
 - Added basic examples.
 - Allow for the case where no fitting parameters are given.
