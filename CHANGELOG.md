@@ -1,5 +1,12 @@
 # Changelog
 
+## HEAD
+
+- Added basic examples.
+- Allow for the case where no fitting parameters are given.
+- Added option in Fit.to_json to omit metadata.
+- New default behavior for Fit.limits.
+
 ## 0.0.3
 
 - Added lmfit support.
