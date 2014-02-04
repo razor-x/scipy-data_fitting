@@ -1,3 +1,4 @@
+import lmfit
 import numpy
 import sympy
 
@@ -247,3 +248,10 @@ class TestFit():
         linspace = numpy.linspace(fit.limits[0], fit.limits[1])
         assert_almost_equal(pointspace['data'], [fit.data.array[0] / 100, fit.data.array[1] / 2])
         assert_almost_equal(pointspace['fit'], [linspace / 100, fit.fitted_function(linspace) / 2])
+
+    def test_lmfit_parameter_values(self):
+        fit = Fit()
+        params = lmfit.Parameters()
+        params.add('a', 1)
+        params.add('b', 2)
+        eq_(fit.lmfit_parameter_values(params), (1, 2))

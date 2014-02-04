@@ -511,6 +511,8 @@ class Fit:
         Thus, `sorted(self.lmfit_parameters)` will give the keys in the same
         order defined by `scipy_data_fitting.Fit.fitting_parameters`.
 
+        Parameter values are scaled by `prefix` before assignment.
+
         [1]: http://cars9.uchicago.edu/software/python/lmfit/parameters.html#the-parameters-class
         """
         prefix = scipy_data_fitting.core.prefix_factor
@@ -534,20 +536,25 @@ class Fit:
         1. A [`lmfit.Parameters`][2] object.
            The value of each parameter will be passed appropriately to `scipy_data_fitting.Fit.function`
            in the order determined by sorting the parameter keys alphabetically.
-           See `scipy_data_fitting.Fit.lmfit_parameters`.
+           See `scipy_data_fitting.Fit.lmfit_parameter_values`.
         2. The values of the independent variable.
         3. The values of the (expected) dependent variable.
 
         The function computes the difference between the evaluated function and the data.
 
+        If overriding this, use `scipy_data_fitting.Fit.lmfit_parameter_values`
+        to get the numerical parameter_values.
+
+        Default example:
+
+            #!python
+            lambda params, x, data: self.function(x, *self.lmfit_parameter_values(params)) - data
+
         [1]: https://pypi.python.org/pypi/lmfit/
         [2]: http://cars9.uchicago.edu/software/python/lmfit/parameters.html#the-parameters-class
         [3]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
         """
-        def fcn2min(params, x, data):
-            p0 = tuple( params[key].value for key in sorted(params) )
-            return self.function(x, *p0) - data
-        return fcn2min
+        return lambda params, x, data: self.function(x, *self.lmfit_parameter_values(params)) - data
 
     @property
     def curve_fit(self):
@@ -740,3 +747,16 @@ class Fit:
         f = open(path, 'w')
         json.dump({'data': data, 'fit': fit, 'meta': self.metadata}, f)
         f.close
+
+    def lmfit_parameter_values(self, params):
+        """
+        `params` is a [`lmfit.Parameters`][1] object.
+
+        Returns a tuple containing the values of the parameters in `params`.
+
+        The order is determined by sorting the parameter keys alphabetically.
+
+        [1]: http://cars9.uchicago.edu/software/python/lmfit/parameters.html#the-parameters-class
+
+        """
+        return tuple( params[key].value for key in sorted(params) )
