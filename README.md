@@ -43,7 +43,7 @@ plot.save(fit.name + '.svg')
 plot.close()
 ````
 
-[![fit plot](https://raw.github.com/razor-x/scipy-data_fitting/master/plot.png)]
+![fit plot](https://raw.github.com/razor-x/scipy-data_fitting/master/plot.png =500)
 
 ## Installation
 
