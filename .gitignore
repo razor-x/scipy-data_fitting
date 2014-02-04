@@ -52,3 +52,7 @@ docs/_build/
 # Documentation
 README.txt
 docs/
+
+# Examples
+examples/json
+examples/plots

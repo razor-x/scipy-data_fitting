@@ -9,6 +9,40 @@ Documentation generated from source with
 for the latest version is hosted at
 [packages.python.org/scipy-data_fitting/](http://packages.python.org/scipy-data_fitting/).
 
+## Basic usage
+
+````python
+from scipy_data_fitting import Data, Model, Fit, Plot
+
+# Load data from a CSV file.
+data = Data('linear')
+data.path = 'linear.csv'
+
+# Create a linear model.
+model = Model('linear')
+model.add_symbols('t', 'v', 'x_0')
+t, v, x_0 = model.get_symbols('t', 'v', 'x_0')
+model.expressions['line'] = v * t + x_0
+
+# Create the fit using the data and model.
+fit = Fit('linear', data=data, model=model)
+fit.expression = 'line'
+fit.independent = {'symbol': 't', 'name': 'Time', 'units': 's'}
+fit.dependent = {'name': 'Distance', 'units': 'm'}
+fit.parameters = [
+    {'symbol': 'x_0', 'value': 1, 'units': 'm'},
+    {'symbol': 'v', 'guess': 1, 'units': 'm/s' },
+]
+
+# Save the fit result to a json file.
+fit.to_json(fit.name + '.json')
+
+# Save a plot of the fit to an image file.
+plot = Plot(fit)
+plot.save(fit.name + '.svg')
+plot.close()
+````
+
 ## Installation
 
 This package is registered on the Python Package Index (PyPI) at
@@ -64,6 +98,20 @@ Run the tests with
 
 ````bash
 $ make tests
+````
+
+### Examples
+
+Run an example with
+
+````bash
+$ python examples/example_fit.py
+````
+
+or run all the examples with
+
+````bash
+$ make examples
 ````
 
 ## License
