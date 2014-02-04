@@ -43,6 +43,8 @@ plot.save(fit.name + '.svg')
 plot.close()
 ````
 
+[![fit plot](https://raw.github.com/razor-x/scipy-data_fitting/master/plot.svg)]
+
 ## Installation
 
 This package is registered on the Python Package Index (PyPI) at
