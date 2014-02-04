@@ -1,5 +1,7 @@
+import itertools
 import json
 import numpy
+import lmfit
 import scipy.optimize
 import sympy
 
@@ -80,6 +82,10 @@ class Fit:
         All other options are passed as keyword arguments
         to the curve fitting function.
 
+        If `fit_function` has the special value `lmfit`, then [lmfit][1]
+        is used for the fit and all other options are passed as keyword arguments
+        to [`lmfit.minimize`][2].
+
         Default:
 
             #!python
@@ -87,6 +93,9 @@ class Fit:
                 'fit_function': scipy.optimize.curve_fit,
                 'maxfev': 1000,
             }
+
+        [1]: https://pypi.python.org/pypi/lmfit/
+        [2]: http://cars9.uchicago.edu/software/python/lmfit/fitting.html#the-minimize-function
         """
         if not hasattr(self, '_options'):
             self._options = {
@@ -349,6 +358,15 @@ class Fit:
 
         `name` and `units` are only for display purposes.
 
+        `lmfit` is an optional key which can be used when fitting with [lmfit][2].
+        This only works for fitting parameters, i.e. when `guess` is given.
+
+        `guess` will automatically be set as the [`lmfit.Parameter`][3] value
+        when using [lmfit][2] even if the `lmfit` key is absent.
+
+        The value of `lmfit` is a dictionary that will be passed as additional keyword arguments
+        to [`lmfit.Parameters.add`][4] when building the corresponding [`lmfit.Parameters`][5] object.
+
         Other keys can be added freely and will be available
         as metadata for the various output formats.
 
@@ -362,6 +380,10 @@ class Fit:
             ]
 
         [1]: http://docs.scipy.org/doc/scipy/reference/constants.html
+        [2]: https://pypi.python.org/pypi/lmfit/
+        [3]: http://cars9.uchicago.edu/software/python/lmfit/parameters.html#Parameter
+        [4]: http://cars9.uchicago.edu/software/python/lmfit/parameters.html#add
+        [5]: http://cars9.uchicago.edu/software/python/lmfit/parameters.html#the-parameters-class
         """
         if not hasattr(self, '_parameters'): self._parameters = []
         return self._parameters
@@ -480,6 +502,54 @@ class Fit:
         self._function = value
 
     @property
+    def lmfit_parameters(self):
+        """
+        A [`lmfit.Parameters`][1] object built from `scipy_data_fitting.Fit.fitting_parameters`,
+        see `scipy_data_fitting.Fit.parameters`.
+
+        Each parameters is assigned a key of the form `p_00000`, `p_00001`, `p_00002`, etc.
+        Thus, `sorted(self.lmfit_parameters)` will give the keys in the same
+        order defined by `scipy_data_fitting.Fit.fitting_parameters`.
+
+        [1]: http://cars9.uchicago.edu/software/python/lmfit/parameters.html#the-parameters-class
+        """
+        prefix = scipy_data_fitting.core.prefix_factor
+
+        p0 = [ (prefix(param) * param['guess'], param['lmfit'] if 'lmfit' in param else {})
+            for param in self.fitting_parameters ]
+
+        params = lmfit.Parameters()
+        for p in zip(itertools.count(), p0):
+            params.add('p_' + "%05d" % p[0], value=p[1][0], **p[1][1])
+
+        return params
+
+    @property
+    def lmfit_fcn2min(self):
+        """
+        The function to minimize when using [lmfit][1].
+
+        Returns a function that takes three arguments:
+
+        1. A [`lmfit.Parameters`][2] object.
+           The value of each parameter will be passed appropriately to `scipy_data_fitting.Fit.function`
+           in the order determined by sorting the parameter keys alphabetically.
+           See `scipy_data_fitting.Fit.lmfit_parameters`.
+        2. The values of the independent variable.
+        3. The values of the (expected) dependent variable.
+
+        The function computes the difference between the evaluated function and the data.
+
+        [1]: https://pypi.python.org/pypi/lmfit/
+        [2]: http://cars9.uchicago.edu/software/python/lmfit/parameters.html#the-parameters-class
+        [3]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
+        """
+        def fcn2min(params, x, data):
+            p0 = tuple( params[key].value for key in sorted(params) )
+            return self.function(x, *p0) - data
+        return fcn2min
+
+    @property
     def curve_fit(self):
         """
         Fits `scipy_data_fitting.Fit.function` to the data and returns
@@ -491,13 +561,17 @@ class Fit:
             prefix = scipy_data_fitting.core.prefix_factor
             options = self.options.copy()
             fit_function = options.pop('fit_function')
-            function = self.function
             independent_values = self.data.array[0]
             dependent_values = self.data.array[1]
-            p0 = [ prefix(param) * param['guess'] for param in self.fitting_parameters ]
 
-            self._curve_fit = fit_function(
-                function, independent_values, dependent_values, p0, **options)
+            if fit_function == 'lmfit':
+                self._curve_fit = lmfit.minimize(
+                    self.lmfit_fcn2min, self.lmfit_parameters,
+                    args=(independent_values, dependent_values), **options)
+            else:
+                p0 = [ prefix(param) * param['guess'] for param in self.fitting_parameters ]
+                self._curve_fit = fit_function(
+                    self.function, independent_values, dependent_values, p0, **options)
 
         return self._curve_fit
 
@@ -512,7 +586,10 @@ class Fit:
         e.g. in most standard use cases these would be the SI values.
         """
         if hasattr(self,'_fitted_parameters'): return self._fitted_parameters
-        return tuple(self.curve_fit[0])
+        if self.options['fit_function'] == 'lmfit':
+            return tuple( self.curve_fit.values[key] for key in sorted(self.curve_fit.values) )
+        else:
+            return tuple(self.curve_fit[0])
 
     @property
     def fitted_function(self):

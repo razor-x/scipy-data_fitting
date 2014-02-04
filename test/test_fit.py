@@ -154,12 +154,44 @@ class TestFit():
         ]
         eq_(fit.function(2, 4, 7), 8075.048)
 
+    def test_lmfit_parameters(self):
+        fit = Fit()
+        fit.options['fit_function'] = 'lmfit'
+        fit.parameters = self.get_parameters()
+        eq_(fit.lmfit_parameters['p_00000'].value, 10)
+        eq_(fit.lmfit_parameters['p_00001'].value, 20)
+
+    def test_lmfit_parameters_with_options(self):
+        fit = Fit()
+        fit.options['fit_function'] = 'lmfit'
+        fit.parameters = self.get_parameters()
+        fit.parameters[2]['lmfit'] = {'min': 0, 'max': 20}
+        eq_(fit.lmfit_parameters['p_00000'].value, 10)
+        eq_(fit.lmfit_parameters['p_00000'].min, 0)
+        eq_(fit.lmfit_parameters['p_00000'].max, 20)
+
+    def test_lmfit_fcn2min(self):
+        fit = self.get_fit_for_fitting()
+        fit.options['fit_function'] = 'lmfit'
+        assert_almost_equal(fit.lmfit_fcn2min(fit.lmfit_parameters, fit.data.array[0], fit.data.array[1]),
+            fit.function(fit.data.array[0], 10, 20) - fit.data.array[1])
+
     def test_curve_fit(self):
         fit = self.get_fit_for_fitting()
         assert_almost_equal(fit.curve_fit[0], [2, 3])
 
-    def test_fitting_paramters(self):
+    def test_curve_fit_with_lmfit(self):
         fit = self.get_fit_for_fitting()
+        fit.options['fit_function'] = 'lmfit'
+        eq_(fit.curve_fit.values, {'p_00000': 2.0, 'p_00001': 3.0})
+
+    def test_fitted_paramters(self):
+        fit = self.get_fit_for_fitting()
+        assert_almost_equal(fit.fitted_parameters, (2, 3))
+
+    def test_fitted_paramters_with_lmfit(self):
+        fit = self.get_fit_for_fitting()
+        fit.options['fit_function'] = 'lmfit'
         assert_almost_equal(fit.fitted_parameters, (2, 3))
 
     def test_fitted_function(self):
