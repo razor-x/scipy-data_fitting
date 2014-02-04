@@ -137,10 +137,15 @@ class Fit:
 
         Defaults to `(-x, x)` where `x` is the largest absolute value
         of the data corresponding to the independent variable.
+        If no such values are negative, defaults to `(0, x)` instead.
         """
         if not hasattr(self, '_limits'):
             xmax = max(abs(self.data.array[0]))
-            self._limits = (-xmax, xmax)
+            xmin = min(self.data.array[0])
+            if xmin < 0:
+                self._limits = (-xmax, xmax)
+            else:
+                self._limits = (0, xmax)
 
         return self._limits
 
