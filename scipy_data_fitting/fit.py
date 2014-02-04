@@ -596,8 +596,11 @@ class Fit:
         as they are passed back to `scipy_data_fitting.Fit.function`
         for `scipy_data_fitting.Fit.function`,
         e.g. in most standard use cases these would be the SI values.
+
+        If no fitting parameters were specified, this will just return an empty tuple.
         """
         if hasattr(self,'_fitted_parameters'): return self._fitted_parameters
+        if not self.fitting_parameters: return tuple()
         if self.options['fit_function'] == 'lmfit':
             return tuple( self.curve_fit.values[key] for key in sorted(self.curve_fit.values) )
         else:
