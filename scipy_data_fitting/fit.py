@@ -110,8 +110,8 @@ class Fit:
                 'maxfev': 1000,
             }
 
-        [1]: https://pypi.python.org/pypi/lmfit/
-        [2]: http://cars9.uchicago.edu/software/python/lmfit/fitting.html#the-minimize-function
+        [1]: http://lmfit.github.io/lmfit-py/
+        [2]: http://lmfit.github.io/lmfit-py/fitting.html#the-minimize-function
         """
         if not hasattr(self, '_options'):
             self._options = {
@@ -402,9 +402,9 @@ class Fit:
 
         [1]: http://docs.scipy.org/doc/scipy/reference/constants.html
         [2]: https://pypi.python.org/pypi/lmfit/
-        [3]: http://cars9.uchicago.edu/software/python/lmfit/parameters.html#Parameter
-        [4]: http://cars9.uchicago.edu/software/python/lmfit/parameters.html#add
-        [5]: http://cars9.uchicago.edu/software/python/lmfit/parameters.html#the-parameters-class
+        [3]: http://lmfit.github.io/lmfit-py/parameters.html#Parameter
+        [4]: http://lmfit.github.io/lmfit-py/parameters.html#add
+        [5]: http://lmfit.github.io/lmfit-py/parameters.html#the-parameters-class
         """
         if not hasattr(self, '_parameters'): self._parameters = []
         return self._parameters
@@ -534,7 +534,7 @@ class Fit:
 
         Parameter values are scaled by `prefix` before assignment.
 
-        [1]: http://cars9.uchicago.edu/software/python/lmfit/parameters.html#the-parameters-class
+        [1]: http://lmfit.github.io/lmfit-py/parameters.html#the-parameters-class
         """
         prefix = scipy_data_fitting.core.prefix_factor
 
@@ -572,7 +572,7 @@ class Fit:
             lambda params, x, data: self.function(x, *self.lmfit_parameter_values(params)) - data
 
         [1]: https://pypi.python.org/pypi/lmfit/
-        [2]: http://cars9.uchicago.edu/software/python/lmfit/parameters.html#the-parameters-class
+        [2]: http://lmfit.github.io/lmfit-py/parameters.html#the-parameters-class
         [3]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
         """
         return lambda params, x, data: self.function(x, *self.lmfit_parameter_values(params)) - data
@@ -782,7 +782,7 @@ class Fit:
 
         The order is determined by sorting the parameter keys alphabetically.
 
-        [1]: http://cars9.uchicago.edu/software/python/lmfit/parameters.html#the-parameters-class
+        [1]: http://lmfit.github.io/lmfit-py/parameters.html#the-parameters-class
 
         """
         return tuple( params[key].value for key in sorted(params) )
