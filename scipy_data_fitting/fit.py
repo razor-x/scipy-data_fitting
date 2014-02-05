@@ -514,9 +514,10 @@ class Fit:
 
         All values passed to this function will be multiplied by their corresponding prefix.
         """
-        if hasattr(self,'_function'): return self._function
-        function = self.model.lambdify(self.expression, self.all_variables, **self.lambdify_options)
-        return lambda *x: function(*(x + self.fixed_values))
+        if not hasattr(self,'_function'):
+            function = self.model.lambdify(self.expression, self.all_variables, **self.lambdify_options)
+            self._function = lambda *x: function(*(x + self.fixed_values))
+        return self._function
 
     @function.setter
     def function(self, value):
@@ -635,11 +636,13 @@ class Fit:
 
     def clear_fit(self):
         """
-        For performance, the results of the curve fit are saved in
-        `scipy_data_fitting.Fit._curve_fit` and `scipy_data_fitting.Fit._fitted_parameters`.
+        For performance, the function and results of the curve fit are saved in
+        `scipy_data_fitting.Fit._function`, `scipy_data_fitting.Fit._fitted_parameters`,
+        and `scipy_data_fitting.Fit._curve_fit`.
 
         This clears these attributes.
         """
+        del self._function
         del self._curve_fit
         del self._fitted_parameters
 
