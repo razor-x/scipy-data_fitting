@@ -54,7 +54,11 @@ class Data:
                 [ y1, y2, y3, ...]
             ]
 
-        The x and y values will be scaled according to `scipy_data_fitting.Data.scale`.
+        By default, if unset, this will be set on first access
+        by calling `scipy_data_fitting.Data.load_data`.
+
+        When loaded from file, the x and y values will be scaled according
+        to `scipy_data_fitting.Data.scale`.
 
         [1]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
         """
@@ -71,11 +75,7 @@ class Data:
         Tuple `(x_scale, y_scale)` that defines how to scale data
         imported by `scipy_data_fitting.Data.load_data`.
 
-        Data is imported, then values are multiplied by the corresponding
-        scale value before retuning the array.
-
-        If a scale is specified as a string,
-        it will treated as a named physical constant
+        If a scale is specified as a string, it will treated as a named physical constant
         and converted to the corresponding number using [`scipy.constants`][1].
 
         [1]: http://docs.scipy.org/doc/scipy/reference/constants.html
@@ -122,6 +122,9 @@ class Data:
         and returns a [`numpy.ndarray`][2].
 
         Data is scaled according to `scipy_data_fitting.Data.scale`.
+
+        Arguments to [`numpy.genfromtxt`][1] are controlled
+        by `scipy_data_fitting.Data.genfromtxt_args`.
 
         [1]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.genfromtxt.html
         [2]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
