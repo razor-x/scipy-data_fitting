@@ -40,6 +40,21 @@ class TestData():
 
         return {'delimiter': delimiter, 'headers': headers, 'filename': filename}
 
+    def test_scale_with_numbers_gives_numbers(self):
+        data = Data()
+        data.scale = (1, 2)
+        eq_(data.scale, (1, 2))
+
+    def test_scale_with_strings_gives_numbers(self):
+        data = Data()
+        data.scale = ('kilo', 'milli')
+        assert_almost_equal(data.scale, (1000, 0.001))
+
+    def test_scale_with_mixed_gives_numbers(self):
+        data = Data()
+        data.scale = (2, 'Avogadro constant')
+        assert_almost_equal(data.scale, (2, 6.02214129e+23))
+
     def test_load_data(self):
         for data_file in self.data_files:
             data = Data()
@@ -61,17 +76,3 @@ class TestData():
         ]
         assert_allclose(data.load_data(), raw_data_scaled)
 
-    def test_scale_with_numbers_gives_numbers(self):
-        data = Data()
-        data.scale = (1, 2)
-        eq_(data.scale, (1, 2))
-
-    def test_scale_with_strings_gives_numbers(self):
-        data = Data()
-        data.scale = ('kilo', 'milli')
-        assert_almost_equal(data.scale, (1000, 0.001))
-
-    def test_scale_with_mixed_gives_numbers(self):
-        data = Data()
-        data.scale = (2, 'Avogadro constant')
-        assert_almost_equal(data.scale, (2, 6.02214129e+23))
