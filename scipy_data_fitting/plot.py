@@ -97,8 +97,8 @@ class Plot:
 
             if any(v is not None for v in self.fit.data.error):
                 plot_data = plot.errorbar
-                if self.fit.data.error[0]: self.options['data']['xerr'] = self.fit.data.error[0]
-                if self.fit.data.error[1]: self.options['data']['yerr'] = self.fit.data.error[1]
+                self.options['data']['xerr'] = self.fit.data.error[0]
+                self.options['data']['yerr'] = self.fit.data.error[1]
             else:
                 plot_data = plot.plot
 
