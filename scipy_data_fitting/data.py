@@ -130,11 +130,5 @@ class Data:
         [2]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
         """
         array = numpy.genfromtxt(self.path, **self.genfromtxt_args)
-
-        if self.scale == (1, 1):
-            return array
-        else:
-            return numpy.array([
-                array[0] * self.scale[0],
-                array[1] * self.scale[1]
-            ])
+        for n, scale in enumerate(self.scale): array[n,:] *= self.scale[n]
+        return array
