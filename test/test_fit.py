@@ -55,6 +55,12 @@ class TestFit():
         data = Data()
         data.array = numpy.array([ [1, 2], [3, 4] ])
         fit = Fit(data=data)
+        eq_(fit.limits, (0, 2))
+
+    def test_limits_symmetric(self):
+        data = Data()
+        data.array = numpy.array([ [-2, 1], [3, 4] ])
+        fit = Fit(data=data)
         eq_(fit.limits, (-2, 2))
 
     def test_fitting_parameters(self):
@@ -184,7 +190,8 @@ class TestFit():
     def test_curve_fit_with_lmfit(self):
         fit = self.get_fit_for_fitting()
         fit.options['fit_function'] = 'lmfit'
-        eq_(fit.curve_fit.values, {'p_00000': 2.0, 'p_00001': 3.0})
+        assert_almost_equal(fit.curve_fit.values['p_00000'], 2.0)
+        assert_almost_equal(fit.curve_fit.values['p_00001'], 3.0)
 
     def test_fitted_paramters(self):
         fit = self.get_fit_for_fitting()
