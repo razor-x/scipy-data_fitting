@@ -177,6 +177,18 @@ class TestFit():
         eq_(fit.lmfit_parameters['p_00000'].min, 0)
         eq_(fit.lmfit_parameters['p_00000'].max, 20)
 
+    def test_lmfit_parameters_with_scale(self):
+        fit = Fit()
+        fit.options['fit_function'] = 'lmfit'
+        fit.parameters = [
+            {'symbol': 'k', 'guess': 2, 'prefix': 'kilo',
+                'lmfit': {'min': 0.5, 'max': 4}
+            },
+        ]
+        eq_(fit.lmfit_parameters['p_00000'].value, 2000.0)
+        eq_(fit.lmfit_parameters['p_00000'].min, 500)
+        eq_(fit.lmfit_parameters['p_00000'].max, 4000.0)
+
     def test_lmfit_fcn2min(self):
         fit = self.get_fit_for_fitting()
         fit.options['fit_function'] = 'lmfit'

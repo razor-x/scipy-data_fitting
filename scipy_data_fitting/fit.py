@@ -385,8 +385,8 @@ class Fit:
 
         When `value` is given, the given value is fixed.
 
-        If a `prefix` is specified, the `value` or `guess` will
-        be multiplied by it before being used.
+        If a `prefix` is specified, the `value` or `guess` (or `min` and `max` in `limft`, see below)
+        will be multiplied by it before being used.
 
         When `prefix` is given as a string, it will be converted to a number from [`scipy.constants`][1].
 
@@ -405,6 +405,9 @@ class Fit:
 
         The value of `lmfit` is a dictionary that will be passed as additional keyword arguments
         to [`lmfit.Parameters.add`][4] when building the corresponding [`lmfit.Parameters`][5] object.
+
+        The values of `min` and `max`, if specified in the `limft` key,
+        will be scaled by `prefix` before being used to add the parameter.
 
         Other keys can be added freely and will be available
         as metadata for the various output formats.
@@ -552,12 +555,19 @@ class Fit:
 
         Parameter values are scaled by `prefix` before assignment.
 
+        The values of `min` and `max`, if specified in the `limft` key,
+        will be scaled by `prefix` before being used to add the parameter.
+
         [1]: http://lmfit.github.io/lmfit-py/parameters.html#the-parameters-class
         """
         prefix = scipy_data_fitting.core.prefix_factor
 
-        p0 = [ (prefix(param) * param['guess'], param['lmfit'] if 'lmfit' in param else {})
-            for param in self.fitting_parameters ]
+        p0 = []
+        for param in self.fitting_parameters:
+            opts = param['lmfit'].copy() if 'lmfit' in param else {}
+            if 'min' in opts: opts['min'] = prefix(param) * opts['min']
+            if 'max' in opts: opts['max'] = prefix(param) * opts['max']
+            p0.append((prefix(param) * param['guess'], opts))
 
         params = lmfit.Parameters()
         for p in zip(itertools.count(), p0):
