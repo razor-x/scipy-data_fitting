@@ -1,6 +1,6 @@
 # Changelog
 
-## HEAD
+## 0.0.7
 
 - Added support for errors and error bars.
 - Fixed how meta works in Fit.to_json.
