@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.8
+
+- The values of `min` and `max` (for `limft`) are scaled by `prefix`.
+
 ## 0.0.7
 
 - Added support for errors and error bars.
