@@ -49,6 +49,31 @@ plot.save(fit.name + '.svg')
 plot.close()
 ````
 
+### Controlling the fitting process
+
+The above example will fit the line using the default algorithm
+[`scipy.optimize.curve_fit`](http://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html).
+
+For a linear fit, it may be more desirable to use a more efficient algorithm.
+
+For example, to use
+[`numpy.polyfit`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.polyfit.html),
+one could set a `fit_function` and allow both parameters to vary,
+
+````python
+fit.parameters = [
+    {'symbol': 'v', 'guess': 1, 'units': 'm/s'},
+    {'symbol': 'x_0', 'guess': 1, 'units': 'm'},
+]
+fit.options['fit_function'] = lambda f, x, y, p0, **op: (numpy.polyfit(x, y, 1), )
+````
+
+Controlling the fitting process this way allows, for example, incorporating error values
+and computing and returning goodness of fit information.
+
+See [`scipy_data_fitting.Fit.options`](http://packages.python.org/scipy-data_fitting/#scipy_data_fitting.Fit.options)
+for further details on how to control the fit and also how to use [lmfit](http://lmfit.github.io/lmfit-py/).
+
 ![fit plot](https://raw.github.com/razor-x/scipy-data_fitting/master/plot.png)
 
 ## Installation

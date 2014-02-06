@@ -518,19 +518,18 @@ class Fit:
     @property
     def function(self):
         """
-        The function used to perform the fit.
+        The function passed to the `fit_function` specified in `scipy_data_fitting.Fit.options`,
+        and used by `scipy_data_fitting.Fit.pointspace` to generate plots, etc.
 
         Its number of arguments and their order is determined by items 1, 2, and 3
         as listed in `scipy_data_fitting.Fit.all_variables`.
 
-        It is a functional form of `scipy_data_fitting.Fit.expression` converted
+        All parameter values will be multiplied by their corresponding prefix before being passed to this function.
+
+        By default, it is a functional form of `scipy_data_fitting.Fit.expression` converted
         using `scipy_data_fitting.Model.lambdify`.
 
         See also `scipy_data_fitting.Fit.lambdify_options`.
-
-        Note that the function will be generated on each call unless this is set manually.
-
-        All values passed to this function will be multiplied by their corresponding prefix.
         """
         if not hasattr(self,'_function'):
             function = self.model.lambdify(self.expression, self.all_variables, **self.lambdify_options)
