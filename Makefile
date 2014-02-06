@@ -2,7 +2,7 @@ docs:
 	@pdoc --html --html-dir ./docs --overwrite ./scipy_data_fitting
 
 examples:
-	@python $(wildcard examples/*.py)
+	@$(foreach x,$(wildcard examples/*.py),python $(x);)
 
 release: docs
 	@python setup.py register sdist bdist_egg upload
@@ -12,3 +12,4 @@ test:
 	@nosetests
 
 .PHONY: docs examples test
+
