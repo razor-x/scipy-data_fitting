@@ -3,6 +3,7 @@
 ## HEAD
 
 - Added support for errors and error bars.
+- Fixed how meta works in Fit.to_json.
 
 ## 0.0.4
 

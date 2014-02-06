@@ -11,7 +11,7 @@ def save_example_fit(fit):
     if not os.path.isdir(json_directory): os.makedirs(json_directory)
     if not os.path.isdir(plot_directory): os.makedirs(plot_directory)
 
-    fit.to_json(os.path.join(json_directory, fit.name + '.json'))
+    fit.to_json(os.path.join(json_directory, fit.name + '.json'), meta=fit.metadata)
 
     plot = Plot(fit)
     plot.save(os.path.join(plot_directory, fit.name + '.svg'))

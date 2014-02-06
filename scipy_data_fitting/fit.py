@@ -749,13 +749,13 @@ class Fit:
           'fit': numpy.array([linspace, self.fitted_function(linspace)]) * scale_array
         }
 
-    def to_json(self, path, points=50, meta=True):
+    def to_json(self, path, points=50, meta=None):
         """
         Write the results of the fit to a json file at `path`.
 
         `points` will define the length of the `fit` array.
 
-        If `meta` is `False`, then metadata will not be included in the json file.
+        If `meta` is given, a `meta` key be added with the given value.
 
         The json object has the form
 
@@ -763,7 +763,7 @@ class Fit:
             {
                 'data': [ [x1, y1], [x2, y2], ... ],
                 'fit': [ [x1, y1], [x2, y2], ... ],
-                'meta': self.metadata
+                'meta': meta
             }
         """
         pointspace = self.pointspace(num=points)
@@ -773,8 +773,11 @@ class Fit:
         fit = [ [ point[0],  point[1] ] for point in fit_points ]
         data = [ [ point[0],  point[1] ] for point in data_points ]
 
+        obj = {'data': data, 'fit': fit}
+        if meta: obj['meta'] = meta
+
         f = open(path, 'w')
-        json.dump({'data': data, 'fit': fit, 'meta': self.metadata}, f)
+        json.dump(obj, f)
         f.close
 
     def lmfit_parameter_values(self, params):

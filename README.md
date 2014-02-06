@@ -41,7 +41,7 @@ fit.parameters = [
 ]
 
 # Save the fit result to a json file.
-fit.to_json(fit.name + '.json')
+fit.to_json(fit.name + '.json', meta=fit.metadata)
 
 # Save a plot of the fit to an image file.
 plot = Plot(fit)
