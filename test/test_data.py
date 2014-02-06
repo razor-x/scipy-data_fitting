@@ -1,4 +1,5 @@
 import csv
+import numpy
 import os
 import tempfile
 
@@ -23,20 +24,30 @@ class TestData():
             ("\t", []),
             ("\t", ['r', 't']),
         ]
-        cls.data_files = [ cls.write_data(*args) for args in test_data_files ]
+        cls.data_files = [ cls.write_data(cls.raw_data_pairs, *args) for args in test_data_files ]
+
+        cls.error = [
+            [0.1, 0.4, 0.6],
+            [0.2, 0.5, 0.9],
+            [0.3, 0.7, 1.1],
+            [0.8, 1.2, 1.5]
+        ]
+        cls.error_pairs = list(zip(*cls.error))
+        cls.error_file = cls.write_data(cls.error_pairs, ',', [])
 
     @classmethod
     def teardown_class(cls):
         for data_file in cls.data_files:
             os.remove(data_file['filename'])
+        os.remove(cls.error_file['filename'])
 
     @classmethod
-    def write_data(cls, delimiter, headers):
+    def write_data(cls, data, delimiter, headers):
         filename = tempfile.mkstemp(prefix='scipy_data_fitting_test_')[1]
         with open(filename, 'w+') as datafile:
             writer = csv.writer(datafile, delimiter=delimiter)
             if headers: writer.writerow(headers)
-            writer.writerows(cls.raw_data_pairs)
+            writer.writerows(data)
 
         return {'delimiter': delimiter, 'headers': headers, 'filename': filename}
 
@@ -76,3 +87,84 @@ class TestData():
         ]
         assert_allclose(data.load_data(), raw_data_scaled)
 
+    def test_error_makes_ndarray(self):
+        data = Data()
+        data.error = (0.1, None)
+        assert_allclose(data.error[0], numpy.array(0.1))
+        eq_(data.error[1], None)
+
+        data.error = ([0.1, 0.2], None)
+        assert_allclose(data.error[0], numpy.array([0.1, 0.2]))
+        eq_(data.error[1], None)
+
+        data.error = (0.1, 0.2)
+        assert_allclose(data.error[0], numpy.array(0.1))
+        assert_allclose(data.error[1], numpy.array(0.2))
+
+        data.error = (0.1, [0.1, 0.2])
+        assert_allclose(data.error[0], numpy.array(0.1))
+        assert_allclose(data.error[1], numpy.array([0.1, 0.2]))
+
+    def test_load_error(self):
+        raw_error = numpy.array(self.error)
+        data = Data()
+        data.path = self.error_file['filename']
+
+        data.error_columns = (1, None)
+        assert_allclose(data.error[0], raw_error[1])
+        eq_(data.error[1], None)
+
+        del data._error
+        data.error_columns = (None, 1)
+        eq_(data.error[0], None)
+        assert_allclose(data.error[1], raw_error[1])
+
+        del data._error
+        data.error_columns = (2, 1)
+        assert_allclose(data.error[0], raw_error[2])
+        assert_allclose(data.error[1], raw_error[1])
+
+        del data._error
+        data.error_columns = ((1, 2), None)
+        assert_allclose(data.error[0], numpy.array([raw_error[1], raw_error[2]]))
+        eq_(data.error[1], None)
+
+        del data._error
+        data.error_columns = (None, (1, 2))
+        eq_(data.error[0], None)
+        assert_allclose(data.error[1], numpy.array([raw_error[1], raw_error[2]]))
+
+        del data._error
+        data.error_columns = ((1, 2), 0)
+        assert_allclose(data.error[0], numpy.array([raw_error[1], raw_error[2]]))
+        assert_allclose(data.error[1], raw_error[0])
+
+        del data._error
+        data.error_columns = (0, (2, 1))
+        assert_allclose(data.error[0], raw_error[0])
+        assert_allclose(data.error[1], numpy.array([raw_error[2], raw_error[1]]))
+
+        del data._error
+        data.error_columns = ((1, 3), (0, 2))
+        assert_allclose(data.error[0], numpy.array([raw_error[1], raw_error[3]]))
+        assert_allclose(data.error[1], numpy.array([raw_error[0], raw_error[2]]))
+
+    def test_load_error_with_scale(self):
+        raw_error = numpy.array(self.error)
+        data = Data()
+        data.path = self.error_file['filename']
+        data.scale = (2, 10)
+
+        data.error_columns = ((1, 2), 0)
+        assert_allclose(data.error[0], 2 * numpy.array([raw_error[1], raw_error[2]]))
+        assert_allclose(data.error[1], 10 * raw_error[0])
+
+        del data._error
+        data.error_columns = (0, (2, 1))
+        assert_allclose(data.error[0], 2 * raw_error[0])
+        assert_allclose(data.error[1], 10 * numpy.array([raw_error[2], raw_error[1]]))
+
+        del data._error
+        data.error_columns = ((1, 3), (0, 2))
+        assert_allclose(data.error[0], 2 * numpy.array([raw_error[1], raw_error[3]]))
+        assert_allclose(data.error[1], 10 * numpy.array([raw_error[0], raw_error[2]]))

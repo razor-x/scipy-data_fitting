@@ -95,8 +95,15 @@ class Plot:
             plot = self.figure.add_subplot(111)
             pointspace = self.fit.pointspace(num=self.options['points'])
 
+            if any(v is not None for v in self.fit.data.error):
+                plot_data = plot.errorbar
+                if self.fit.data.error[0]: self.options['data']['xerr'] = self.fit.data.error[0]
+                if self.fit.data.error[1]: self.options['data']['yerr'] = self.fit.data.error[1]
+            else:
+                plot_data = plot.plot
+
             plot.plot(*pointspace['fit'], **self.options['fit'])
-            plot.plot(*pointspace['data'], **self.options['data'])
+            plot_data(*pointspace['data'], **self.options['data'])
 
             text = {}
             for v in ('independent', 'dependent'):

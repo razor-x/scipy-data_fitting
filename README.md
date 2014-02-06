@@ -22,6 +22,7 @@ from scipy_data_fitting import Data, Model, Fit, Plot
 # Load data from a CSV file.
 data = Data('linear')
 data.path = 'linear.csv'
+data.error = (0.5, None)
 
 # Create a linear model.
 model = Model('linear')

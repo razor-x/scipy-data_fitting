@@ -3,7 +3,7 @@ from example_helper import save_example_fit
 from scipy_data_fitting import Data, Model, Fit
 
 #
-# Example of a basic linear fit.
+# Example of a basic linear fit with error bars.
 #
 
 name = 'basic_linear'
@@ -11,6 +11,7 @@ name = 'basic_linear'
 # Load data from a csv file.
 data = Data(name)
 data.path = os.path.join('examples','data', 'linear.csv')
+data.error = (0.5, None)
 
 # Create a linear model.
 model = Model(name)

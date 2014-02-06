@@ -1,5 +1,9 @@
 # Changelog
 
+## HEAD
+
+- Added support for errors and error bars.
+
 ## 0.0.4
 
 - Added basic examples.
