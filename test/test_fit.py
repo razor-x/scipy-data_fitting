@@ -180,7 +180,8 @@ class TestFit():
     def test_lmfit_fcn2min(self):
         fit = self.get_fit_for_fitting()
         fit.options['fit_function'] = 'lmfit'
-        assert_almost_equal(fit.lmfit_fcn2min(fit.lmfit_parameters, fit.data.array[0], fit.data.array[1]),
+        assert_almost_equal(fit.lmfit_fcn2min(fit.lmfit_parameters,
+            fit.data.array[0], fit.data.array[1], fit.data.error),
             fit.function(fit.data.array[0], 10, 20) - fit.data.array[1])
 
     def test_curve_fit(self):

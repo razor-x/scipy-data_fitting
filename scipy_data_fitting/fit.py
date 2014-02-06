@@ -90,17 +90,35 @@ class Fit:
         Must contain the key `fit_function` which must be set to
         the function that will perform the fit.
 
-        The default options use `scipy.optimize.curve_fit`,
-        and this class will assume any other specified function
-        will receive the first four arguments in the same format as that
-        and return an object of the same format that.
+        All other options are passed as keyword arguments to the `fit_function`.
 
-        All other options are passed as keyword arguments
-        to the curve fitting function.
+        The default options use `scipy.optimize.curve_fit`.
 
         If `fit_function` has the special value `lmfit`, then [lmfit][1]
         is used for the fit and all other options are passed as keyword arguments
         to [`lmfit.minimize`][2].
+
+        When using [lmfit][1], additional control of the fit is obtained by overriding
+        `scipy_data_fitting.Fit.lmfit_fcn2min`.
+
+        Any other function may be used for `fit_function` that satisfies the following criteria:
+
+        * Must accept the following non-keyword arguments in this order
+          (even if unused in the fitting function):
+
+            1. Function to fit, see `scipy_data_fitting.Fit.function`.
+            2. Independent values: see `scipy_data_fitting.Data.array`.
+            3. Dependent values: see `scipy_data_fitting.Data.array`.
+            4. List of the initial fitting parameter guesses in same order
+               as given by `scipy_data_fitting.Fit.fitting_parameters`.
+               The initial guesses will be scaled by their prefix before being passed.
+
+        * Can accept any keyword arguments set in `scipy_data_fitting.Fit.options`.
+          For example, this is how one could pass error values to the fitting function.
+
+        * Must return an object whose first element is a list or array of the values
+          of the fitted parameters (and only those values) in same order
+          as given by `scipy_data_fitting.Fit.fitting_parameters`.
 
         Default:
 
@@ -553,30 +571,30 @@ class Fit:
         """
         The function to minimize when using [lmfit][1].
 
-        Returns a function that takes three arguments:
+        If overriding this, the replacement function must accept the following
+        non-keyword arguments in this order (even if unused):
 
         1. A [`lmfit.Parameters`][2] object.
-           The value of each parameter will be passed appropriately to `scipy_data_fitting.Fit.function`
+           The value of each parameter must be passed appropriately to `scipy_data_fitting.Fit.function`
            in the order determined by sorting the parameter keys alphabetically.
-           See `scipy_data_fitting.Fit.lmfit_parameter_values`.
-        2. The values of the independent variable.
-        3. The values of the (expected) dependent variable.
+           Use `scipy_data_fitting.Fit.lmfit_parameter_values` to get the ordered numerical parameter values.
+        2. Independent values: see `scipy_data_fitting.Data.array`.
+        3. Dependent values: see `scipy_data_fitting.Data.array`.
+        4. The error: see `scipy_data_fitting.Data.error`.
 
-        The function computes the difference between the evaluated function and the data.
 
-        If overriding this, use `scipy_data_fitting.Fit.lmfit_parameter_values`
-        to get the numerical parameter_values.
+        The default function computes the difference between the evaluated function and the data.
 
         Default example:
 
             #!python
-            lambda params, x, data: self.function(x, *self.lmfit_parameter_values(params)) - data
+            lambda params, x, data, error: self.function(x, *self.lmfit_parameter_values(params)) - data
 
         [1]: https://pypi.python.org/pypi/lmfit/
         [2]: http://lmfit.github.io/lmfit-py/parameters.html#the-parameters-class
         [3]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
         """
-        return lambda params, x, data: self.function(x, *self.lmfit_parameter_values(params)) - data
+        return lambda params, x, data, error: self.function(x, *self.lmfit_parameter_values(params)) - data
 
     @property
     def curve_fit(self):
@@ -584,7 +602,8 @@ class Fit:
         Fits `scipy_data_fitting.Fit.function` to the data and returns
         the output from the specified curve fit function.
 
-        See also `scipy_data_fitting.Fit.options`.
+        See `scipy_data_fitting.Fit.options` for details on how to control
+        or override the the curve fitting algorithm.
         """
         if not hasattr(self,'_curve_fit'):
             prefix = scipy_data_fitting.core.prefix_factor
@@ -596,7 +615,7 @@ class Fit:
             if fit_function == 'lmfit':
                 self._curve_fit = lmfit.minimize(
                     self.lmfit_fcn2min, self.lmfit_parameters,
-                    args=(independent_values, dependent_values), **options)
+                    args=(independent_values, dependent_values, self.data.error), **options)
             else:
                 p0 = [ prefix(param) * param['guess'] for param in self.fitting_parameters ]
                 self._curve_fit = fit_function(
@@ -610,8 +629,7 @@ class Fit:
         A tuple of fitted values for the `scipy_data_fitting.Fit.fitting_parameters`.
 
         The values in this tuple are not scaled by the prefix,
-        as they are passed back to `scipy_data_fitting.Fit.function`
-        for `scipy_data_fitting.Fit.function`,
+        as they are passed back to `scipy_data_fitting.Fit.function`,
         e.g. in most standard use cases these would be the SI values.
 
         If no fitting parameters were specified, this will just return an empty tuple.
