@@ -36,8 +36,8 @@ fit.expression = 'line'
 fit.independent = {'symbol': 't', 'name': 'Time', 'units': 's'}
 fit.dependent = {'name': 'Distance', 'units': 'm'}
 fit.parameters = [
-    {'symbol': 'x_0', 'value': 1, 'units': 'm'},
     {'symbol': 'v', 'guess': 1, 'units': 'm/s'},
+    {'symbol': 'x_0', 'value': 1, 'units': 'm'},
 ]
 
 # Save the fit result to a json file.

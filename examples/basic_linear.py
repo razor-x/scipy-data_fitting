@@ -11,7 +11,8 @@ name = 'basic_linear'
 # Load data from a csv file.
 data = Data(name)
 data.path = os.path.join('examples','data', 'linear.csv')
-data.error = (0.5, None)
+data.genfromtxt_args['skip_header'] = 1
+data.error_columns = (2, 3)
 
 # Create a linear model.
 model = Model(name)
@@ -25,8 +26,8 @@ fit.expression = 'line'
 fit.independent = {'symbol': 't', 'name': 'Time', 'units': 's'}
 fit.dependent = {'name': 'Distance', 'units': 'm'}
 fit.parameters = [
-    {'symbol': 'x_0', 'value': 1, 'units': 'm'},
     {'symbol': 'v', 'guess': 1, 'units': 'm/s'},
+    {'symbol': 'x_0', 'value': 1, 'units': 'm'},
 ]
 
 # Save the fit to disk.

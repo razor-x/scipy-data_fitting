@@ -12,6 +12,7 @@ name = 'basic_linear_scaled'
 # Load data from a csv file.
 data = Data(name)
 data.path = os.path.join('examples','data', 'linear.csv')
+data.genfromtxt_args['skip_header'] = 1
 
 # Assume the data was not saved in SI base units.
 data.scale = ('micro', 'kilo')
@@ -28,8 +29,8 @@ fit.expression = 'line'
 fit.independent = {'symbol': 't', 'name': 'Time', 'prefix': 'micro', 'units': 'µs'}
 fit.dependent = {'name': 'Distance', 'prefix': 'kilo', 'units': 'km'}
 fit.parameters = [
-    {'symbol': 'x_0', 'value': 1, 'prefix': 'kilo', 'units': 'km'},
     {'symbol': 'v', 'guess': 1, 'prefix': 10**9, 'units': 'km/µs'},
+    {'symbol': 'x_0', 'value': 1, 'prefix': 'kilo', 'units': 'km'},
 ]
 
 # Save the fit to disk.
