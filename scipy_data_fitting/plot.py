@@ -102,8 +102,8 @@ class Plot:
             else:
                 plot_data = plot.plot
 
-            plot.plot(*pointspace['fit'], **self.options['fit'])
             plot_data(*pointspace['data'], **self.options['data'])
+            plot.plot(*pointspace['fit'], **self.options['fit'])
 
             text = {}
             for v in ('independent', 'dependent'):

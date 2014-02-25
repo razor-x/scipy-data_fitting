@@ -1,5 +1,9 @@
 # Changelog
 
+## HEAD
+
+- Plot fit line over data points.
+
 ## 0.0.8
 
 - The values of `min` and `max` (for `limft`) are scaled by `prefix`.
