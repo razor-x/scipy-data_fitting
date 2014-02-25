@@ -1,6 +1,6 @@
 # Changelog
 
-## HEAD
+## 0.0.9
 
 - Plot fit line over data points.
 
