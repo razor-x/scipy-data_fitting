@@ -2,8 +2,6 @@
 
 ![fit plot](https://raw.github.com/razor-x/scipy-data_fitting/master/plot.png)
 
-**This project is in development and in no way stable.**
-
 ## Documentation
 
 Documentation generated from source with

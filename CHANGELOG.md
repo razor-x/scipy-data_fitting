@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.0
+
+- First stable release. No planned API breaking changes.
+
 ## 0.0.9
 
 - Plot fit line over data points.
