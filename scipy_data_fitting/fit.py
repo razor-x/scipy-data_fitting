@@ -176,6 +176,11 @@ class Fit:
         if not hasattr(self, '_limits'):
             xmax = max(abs(self.data.array[0]))
             xmin = min(self.data.array[0])
+
+            x_error = self.data.error[0]
+            if isinstance(x_error, numpy.ndarray):
+                if x_error.ndim == 0: xmax = xmax + x_error
+
             if xmin < 0:
                 self._limits = (-xmax, xmax)
             else:
