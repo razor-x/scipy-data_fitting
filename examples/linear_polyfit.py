@@ -8,7 +8,7 @@ from scipy_data_fitting import Data, Model, Fit
 # This example demonstrates how to use a custom `fit_function`.
 #
 
-name = 'basic_linear_polyfit'
+name = 'linear_polyfit'
 
 # Load data from a csv file.
 data = Data(name)

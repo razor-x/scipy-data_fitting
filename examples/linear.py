@@ -6,7 +6,7 @@ from scipy_data_fitting import Data, Model, Fit
 # Example of a basic linear fit with error bars.
 #
 
-name = 'basic_linear'
+name = 'linear'
 
 # Load data from a csv file.
 data = Data(name)

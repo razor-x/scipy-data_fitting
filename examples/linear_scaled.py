@@ -7,7 +7,7 @@ from scipy_data_fitting import Data, Model, Fit
 # This example demonstrates how to use `prefix` for unit conversions.
 #
 
-name = 'basic_linear_scaled'
+name = 'linear_scaled'
 
 # Load data from a csv file.
 data = Data(name)
