@@ -1,5 +1,7 @@
 # Data Fitting with SciPy
 
+![fit plot](https://raw.github.com/razor-x/scipy-data_fitting/master/plot.png)
+
 **This project is in development and in no way stable.**
 
 ## Documentation
@@ -73,8 +75,6 @@ and computing and returning goodness of fit information.
 
 See [`scipy_data_fitting.Fit.options`](http://packages.python.org/scipy-data_fitting/#scipy_data_fitting.Fit.options)
 for further details on how to control the fit and also how to use [lmfit](http://lmfit.github.io/lmfit-py/).
-
-![fit plot](https://raw.github.com/razor-x/scipy-data_fitting/master/plot.png)
 
 ## Installation
 
