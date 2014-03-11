@@ -167,7 +167,7 @@ class Fit:
     def limits(self):
         """
         Limits to use for the independent variable whenever
-        creating a line-space, plot, etc.
+        creating a linespace, plot, etc.
 
         Defaults to `(-x, x)` where `x` is the largest absolute value
         of the data corresponding to the independent variable.
@@ -230,7 +230,7 @@ class Fit:
         defined in `scipy_data_fitting.Model.symbols`.
 
         If a `prefix` is given (as a number or string), it will affect the scale when
-        creating a line-space, plot, etc.
+        creating a linespace, plot, etc.
 
         When `prefix` is given as a string, it will be converted to a number from [`scipy.constants`][1].
 
