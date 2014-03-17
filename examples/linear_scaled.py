@@ -11,7 +11,7 @@ name = 'linear_scaled'
 
 # Load data from a csv file.
 data = Data(name)
-data.path = os.path.join('examples','data', 'linear.csv')
+data.path = os.path.join('examples', 'data', 'linear.csv')
 data.genfromtxt_args['skip_header'] = 1
 
 # Assume the data was not saved in SI base units.

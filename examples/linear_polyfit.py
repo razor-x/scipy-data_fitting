@@ -12,7 +12,7 @@ name = 'linear_polyfit'
 
 # Load data from a csv file.
 data = Data(name)
-data.path = os.path.join('examples','data', 'linear.csv')
+data.path = os.path.join('examples', 'data', 'linear.csv')
 data.genfromtxt_args['skip_header'] = 1
 
 # Create a linear model.
