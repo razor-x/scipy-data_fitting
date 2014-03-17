@@ -22,7 +22,7 @@ if __name__ == "__main__":
     httpd = server(port)
     try:
         os.chdir(os.path.join('examples', 'fitalyzer'))
-        print("\nserving from build/ at localhost:" + str(port))
+        print("\nserving from examples/fitalyzer/ at localhost:" + str(port))
         httpd.serve_forever()
     except KeyboardInterrupt:
         print("\n...shutting down http server")
