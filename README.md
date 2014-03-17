@@ -2,6 +2,9 @@
 
 ![fit plot](https://raw.github.com/razor-x/scipy-data_fitting/master/plot.png)
 
+Check out the [example fits on Fitalyzer](http://io.evansosenko.com/fitalyzer/?firebase=scipy-data-fitting).
+See the [Fitalyzer README](https://github.com/razor-x/fitalyzer) for details on how to use Fitalyzer for visualizing your fits.
+
 ## Documentation
 
 Documentation generated from source with
