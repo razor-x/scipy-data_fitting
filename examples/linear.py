@@ -1,4 +1,5 @@
 import os
+
 from example_helper import save_example_fit
 from scipy_data_fitting import Data, Model, Fit
 
