@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 from scipy_data_fitting import Plot
 
 def save_example_fit(fit):
@@ -16,3 +17,10 @@ def save_example_fit(fit):
     plot = Plot(fit)
     plot.save(os.path.join(plot_directory, fit.name + '.svg'))
     plot.close()
+
+def reset_directory(directory):
+    """
+    Remove `directory` if it exists, then create it if it doesn't exist.
+    """
+    if os.path.isdir(directory): shutil.rmtree(directory)
+    if not os.path.isdir(directory): os.makedirs(directory)
