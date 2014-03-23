@@ -1,5 +1,6 @@
 docs:
 	@pdoc --html --html-dir ./docs --overwrite ./scipy_data_fitting
+	@pdoc --html --html-dir ./docs/scipy_data_fitting --overwrite ./scipy_data_fitting/figure
 
 examples:
 	@$(foreach x,$(wildcard examples/*.py),python $(x);)

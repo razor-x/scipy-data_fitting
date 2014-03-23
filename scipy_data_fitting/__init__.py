@@ -10,6 +10,8 @@ The source is hosted on GitHub at
 This is the pdoc generated documentation,
 please see the README at either location above
 for more details about this package.
+
+There is also pdoc documentation for the [figure creation subpackage](figure).
 """
 
 from .data import Data
