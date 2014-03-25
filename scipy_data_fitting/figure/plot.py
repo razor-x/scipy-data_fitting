@@ -112,6 +112,26 @@ class Plot():
     def add_text_table(self, rows, r0, dr, **kwargs):
         """
         Add text to a plot in a grid fashion.
+
+        `rows` is a list of lists (the rows).
+        Each row contains the columns,
+        each column is text to add to the plot.
+
+        `r0` is a tuple `(x, y)` that positions the initial text.
+
+        `dr` is a tuple `(dx, dy)` that determines the column and row spacing.
+
+        Any keyword arguments will be passed to `matplotlib.pyplot.text`.
+
+        Example:
+
+        #!python
+            >>> rows = [ ['a', '=', '1'], ['b', '=', '2'] ]
+            >>> self.add_text_table(rows, (0.1, 0.9), (0.1, -0.1),
+                    horizontalalignment='left',
+                    verticalalignment='top')
+
+        [1]: http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.text
         """
         for m, row in enumerate(rows):
             for n, column in enumerate(row):
