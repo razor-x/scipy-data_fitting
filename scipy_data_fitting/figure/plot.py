@@ -125,7 +125,7 @@ class Plot():
 
         Example:
 
-        #!python
+            #!python
             >>> rows = [ ['a', '=', '1'], ['b', '=', '2'] ]
             >>> self.add_text_table(rows, (0.1, 0.9), (0.1, -0.1),
                     horizontalalignment='left',
