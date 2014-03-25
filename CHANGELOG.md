@@ -1,5 +1,9 @@
 # Changelog
 
+## HEAD
+
+- Added figure subpackage (still in development).
+
 ## 0.1.0
 
 - First stable release. No planned API breaking changes.
