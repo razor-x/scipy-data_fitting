@@ -1,6 +1,6 @@
 # Changelog
 
-## HEAD
+## 0.2.0
 
 - Added figure subpackage (still in development).
 
