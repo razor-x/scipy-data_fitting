@@ -40,6 +40,7 @@ setup(
     description = description,
     long_description = long_description,
     install_requires = [
+        'lmfit',
         'matplotlib',
         'numpy',
         'scipy',
