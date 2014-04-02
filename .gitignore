@@ -1,3 +1,10 @@
+# Parts of this file were adapted from
+# GitHub’s collection of .gitignore file templates
+# which are Copyright (c) 2014 GitHub, Inc.
+# and released under the MIT License.
+# For more details, visit the project page:
+# https://github.com/github/gitignore
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
