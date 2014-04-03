@@ -1,6 +1,6 @@
 import numpy
 
-import scipy_data_fitting.core
+from .core import get_constant
 
 class Data:
     """
@@ -143,7 +143,7 @@ class Data:
 
     @scale.setter
     def scale(self, value):
-        self._scale = tuple( scipy_data_fitting.core.get_constant(v) for v in value )
+        self._scale = tuple( get_constant(v) for v in value )
 
     @property
     def error_columns(self):

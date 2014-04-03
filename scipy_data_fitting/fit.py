@@ -5,7 +5,7 @@ import lmfit
 import scipy.optimize
 import sympy
 
-import scipy_data_fitting.core
+from .core import get_constant, prefix_factor
 
 class Fit:
     """
@@ -514,12 +514,9 @@ class Fit:
 
         The values mimic the order of those lists.
         """
-        constant = scipy_data_fitting.core.get_constant
-        prefix = scipy_data_fitting.core.prefix_factor
-
         values = []
-        values.extend([ prefix(param) * param['value'] for param in self.fixed_parameters ])
-        values.extend([ prefix(const) * constant(const['value']) for const in self.constants ])
+        values.extend([ prefix_factor(param) * param['value'] for param in self.fixed_parameters ])
+        values.extend([ prefix_factor(const) * get_constant(const['value']) for const in self.constants ])
 
         return tuple(values)
 
@@ -565,14 +562,12 @@ class Fit:
 
         [1]: http://lmfit.github.io/lmfit-py/parameters.html#the-parameters-class
         """
-        prefix = scipy_data_fitting.core.prefix_factor
-
         p0 = []
         for param in self.fitting_parameters:
             opts = param['lmfit'].copy() if 'lmfit' in param else {}
-            if 'min' in opts: opts['min'] = prefix(param) * opts['min']
-            if 'max' in opts: opts['max'] = prefix(param) * opts['max']
-            p0.append((prefix(param) * param['guess'], opts))
+            if 'min' in opts: opts['min'] = prefix_factor(param) * opts['min']
+            if 'max' in opts: opts['max'] = prefix_factor(param) * opts['max']
+            p0.append((prefix_factor(param) * param['guess'], opts))
 
         params = lmfit.Parameters()
         for p in zip(itertools.count(), p0):
@@ -620,7 +615,6 @@ class Fit:
         or override the the curve fitting algorithm.
         """
         if not hasattr(self,'_curve_fit'):
-            prefix = scipy_data_fitting.core.prefix_factor
             options = self.options.copy()
             fit_function = options.pop('fit_function')
             independent_values = self.data.array[0]
@@ -631,7 +625,7 @@ class Fit:
                     self.lmfit_fcn2min, self.lmfit_parameters,
                     args=(independent_values, dependent_values, self.data.error), **options)
             else:
-                p0 = [ prefix(param) * param['guess'] for param in self.fitting_parameters ]
+                p0 = [ prefix_factor(param) * param['guess'] for param in self.fitting_parameters ]
                 self._curve_fit = fit_function(
                     self.function, independent_values, dependent_values, p0, **options)
 
@@ -700,11 +694,10 @@ class Fit:
         in `scipy_data_fitting.Fit.computed_quantities`.
         """
         quantity = quantity.copy()
-        prefix = scipy_data_fitting.core.prefix_factor
         expression = self.model.replace(quantity.pop('expression'), self.replacements)
         variables = self.all_variables[len(self.free_variables) + 1:]
         function = self.model.lambdify(expression, variables, **self.lambdify_options)
-        quantity['value'] = function(*(self.fitted_parameters + self.fixed_values)) * prefix(quantity)**(-1)
+        quantity['value'] = function(*(self.fitted_parameters + self.fixed_values)) * prefix_factor(quantity)**(-1)
         return quantity
 
     @property
@@ -714,11 +707,10 @@ class Fit:
         but in each dictionary, the key `value` is added with the fitted value of the quantity.
         The reported value is scaled by the inverse prefix.
         """
-        prefix = scipy_data_fitting.core.prefix_factor
         fitted_parameters = []
         for (i, v) in enumerate(self.fitting_parameters):
             param = v.copy()
-            param['value'] = self.fitted_parameters[i] * prefix(param)**(-1)
+            param['value'] = self.fitted_parameters[i] * prefix_factor(param)**(-1)
             fitted_parameters.append(param)
 
         return fitted_parameters
@@ -769,10 +761,9 @@ class Fit:
         [1]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html
         [2]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.linspace.html
         """
-        prefix = scipy_data_fitting.core.prefix_factor
         scale_array = numpy.array([
-            [prefix(self.independent)**(-1)],
-            [prefix(self.dependent)**(-1)]
+            [prefix_factor(self.independent)**(-1)],
+            [prefix_factor(self.dependent)**(-1)]
         ])
 
         linspace = numpy.linspace(self.limits[0], self.limits[1], **kwargs)
