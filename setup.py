@@ -34,7 +34,7 @@ setup(
     version = '0.2.2',
     author = 'Evan Sosenko',
     author_email = 'razorx@evansosenko.com',
-    packages = ['scipy_data_fitting'],
+    packages = ['scipy_data_fitting', 'scipy_data_fitting/figure'],
     url = 'https://github.com/razor-x/scipy-data_fitting',
     license = 'MIT License, see LICENSE.txt',
     description = description,
