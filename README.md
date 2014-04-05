@@ -1,5 +1,8 @@
 # Data Fitting with SciPy
 
+[![PyPI Version](http://img.shields.io/pypi/v/scipy-data_fitting.svg)](https://pypi.python.org/pypi/scipy-data_fitting)
+[![MIT License](http://img.shields.io/badge/license-MIT-red.svg)](./LICENSE.txt)
+
 ![fit plot](https://raw.github.com/razor-x/scipy-data_fitting/master/plot.png)
 
 Check out the [example fits on Fitalyzer](http://io.evansosenko.com/fitalyzer/?firebase=scipy-data-fitting).
