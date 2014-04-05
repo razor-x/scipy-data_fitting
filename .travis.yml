@@ -1,0 +1,18 @@
+language: python
+python:
+  - "3.3"
+
+# Ensure runtime and build requirements are installed
+# for NumPy, SciPy, and matplotlib.
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get build-dep -qq python3-numpy python3-scipy python-matplotlib
+  - sudo apt-get install -qq python3-numpy python3-scipy python-matplotlib
+
+# Must install numpy and scipy separately.
+install:
+  - pip install -q numpy
+  - pip install -q scipy
+  - pip install -qr requirements.txt
+
+script: nosetests
