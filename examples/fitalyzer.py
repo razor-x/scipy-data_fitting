@@ -5,6 +5,11 @@ import sympy
 from example_helper import reset_directory
 from scipy_data_fitting import Data, Model, Fit
 
+#
+# Create a linear fit and a wave fit,
+# then save the results to json for display in fitalyzer.
+#
+
 class LinearData(Data):
     def __init__(self):
         self.path = os.path.join('examples', 'data', 'linear.csv')
