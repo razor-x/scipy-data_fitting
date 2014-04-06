@@ -104,12 +104,30 @@ Or install it yourself as:
 $ pip install scipy-data_fitting
 ````
 
-Instead of the package name `scipy-data_fitting`,
+Depending on your system configuration,
+you may need to run the above commands with `sudo`.
+Alternatively, you may want to use a [virtualenv](http://www.virtualenv.org/),
+which is beyond the scope of this documentation.
+
+To live on the bleeding edge,
+instead of the package name `scipy-data_fitting`,
 you can use this repository directly with
 
 ````
 git+https://github.com/razor-x/scipy-data_fitting.git@master#egg=scipy-data_fitting
 ````
+
+### Note about dependency versions
+
+This package intentionally does not specify dependency versions.
+Thus, pip will use whatever required packages are currently installed
+or fetch the latest available version for missing dependencies.
+
+If you want to control what package versions are used,
+you should specify them explicitly in your project's own `requirements.txt`.
+
+Note that the large scientific packages such as NumPy, SciPy, and matplotlib
+may also be available via your system's package manager.
 
 ## Development
 
@@ -121,6 +139,25 @@ Fork it on GitHub, or clone the project with
 ````bash
 $ git clone https://github.com/razor-x/scipy-data_fitting.git
 ````
+
+Install dependencies with
+
+````bash
+$ pip install -r requirements.txt
+````
+
+and install the package in development mode with
+
+````bash
+$ python setup.py develop
+````
+
+Depending on your system configuration,
+you may need to run the above command with `sudo`
+or use a [virtualenv](http://www.virtualenv.org/).
+
+Note that the large scientific packages such as NumPy, SciPy, and matplotlib
+may also be available via your system's package manager.
 
 ### Documentation
 
