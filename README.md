@@ -109,6 +109,9 @@ you may need to run the above commands with `sudo`.
 Alternatively, you may want to use a [virtualenv](http://www.virtualenv.org/),
 which is beyond the scope of this documentation.
 
+Note that the large scientific packages such as NumPy, SciPy, and matplotlib
+may also be available via your system's package manager.
+
 To live on the bleeding edge,
 instead of the package name `scipy-data_fitting`,
 you can use this repository directly with
@@ -125,9 +128,6 @@ or fetch the latest available version for missing dependencies.
 
 If you want to control what package versions are used,
 you should specify them explicitly in your project's own `requirements.txt`.
-
-Note that the large scientific packages such as NumPy, SciPy, and matplotlib
-may also be available via your system's package manager.
 
 ## Development
 
