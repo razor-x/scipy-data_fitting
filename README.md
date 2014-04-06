@@ -2,6 +2,7 @@
 
 [![PyPI Version](http://img.shields.io/pypi/v/scipy-data_fitting.svg)](https://pypi.python.org/pypi/scipy-data_fitting)
 [![MIT License](http://img.shields.io/badge/license-MIT-red.svg)](./LICENSE.txt)
+[![Build Status](http://img.shields.io/travis/razor-x/scipy-data_fitting.svg)](https://travis-ci.org/razor-x/scipy-data_fitting)
 
 ![fit plot](https://raw.github.com/razor-x/scipy-data_fitting/master/plot.png)
 
