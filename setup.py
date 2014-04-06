@@ -44,6 +44,9 @@ setup(
         'matplotlib',
         'numpy',
         'scipy',
-        'sympy'
-    ]
+        'sympy',
+    ],
+    tests_require = [
+        'nose',
+    ],
 )

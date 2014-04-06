@@ -15,4 +15,4 @@ install:
   - pip install -q scipy
   - pip install -qr requirements.txt
 
-script: nosetests
+script: python setup.py nosetests

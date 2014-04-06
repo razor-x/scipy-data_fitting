@@ -10,7 +10,7 @@ release: docs
 	@python setup.py upload_docs --upload-dir ./docs/scipy_data_fitting
 
 test:
-	@nosetests
+	@python setup.py nosetests
 
 serve:
 	@python server.py
