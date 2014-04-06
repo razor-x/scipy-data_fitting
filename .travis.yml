@@ -14,5 +14,8 @@ install:
   - pip install -q numpy
   - pip install -q scipy
   - pip install -qr requirements.txt
+  - pip install -q coveralls
 
-script: python setup.py nosetests
+script: coverage run --source=scipy_data_fitting setup.py nosetests
+
+after_success: coveralls
