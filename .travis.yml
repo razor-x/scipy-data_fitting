@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.3"
+  - "3.4"
 
 # Ensure runtime and build requirements are installed
 # for NumPy, SciPy, and matplotlib.
