@@ -24,7 +24,7 @@ Then, refer to the source documentation for details on how to use each class.
 
 ## Basic usage
 
-````python
+```python
 from scipy_data_fitting import Data, Model, Fit, Plot
 
 # Load data from a CSV file.
@@ -55,7 +55,7 @@ fit.to_json(fit.name + '.json', meta=fit.metadata)
 plot = Plot(fit)
 plot.save(fit.name + '.svg')
 plot.close()
-````
+```
 
 ### Controlling the fitting process
 
@@ -68,13 +68,13 @@ For example, to use
 [`numpy.polyfit`](http://docs.scipy.org/doc/numpy/reference/generated/numpy.polyfit.html),
 one could set a `fit_function` and allow both parameters to vary,
 
-````python
+```python
 fit.parameters = [
     {'symbol': 'v', 'guess': 1, 'units': 'm/s'},
     {'symbol': 'x_0', 'guess': 1, 'units': 'm'},
 ]
 fit.options['fit_function'] = lambda f, x, y, p0, **op: (numpy.polyfit(x, y, 1), )
-````
+```
 
 Controlling the fitting process this way allows, for example, incorporating error values
 and computing and returning goodness of fit information.
@@ -89,21 +89,21 @@ This package is registered on the Python Package Index (PyPI) at
 
 Add this line to your application's `requirements.txt`:
 
-````
+```
 scipy-data_fitting
-````
+```
 
 And then execute:
 
-````bash
+```bash
 $ pip install -r requirements.txt
-````
+```
 
 Or install it yourself as:
 
-````bash
+```bash
 $ pip install scipy-data_fitting
-````
+```
 
 Depending on your system configuration,
 you may need to run the above commands with `sudo`.
@@ -117,9 +117,9 @@ To live on the bleeding edge,
 instead of the package name `scipy-data_fitting`,
 you can use this repository directly with
 
-````
+```
 git+https://github.com/razor-x/scipy-data_fitting.git@master#egg=scipy-data_fitting
-````
+```
 
 ### Note about dependency versions
 
@@ -137,21 +137,21 @@ you should specify them explicitly in your project's own `requirements.txt`.
 The [source](https://github.com/razor-x/scipy-data_fitting) is hosted at GitHub.
 Fork it on GitHub, or clone the project with
 
-````bash
+```bash
 $ git clone https://github.com/razor-x/scipy-data_fitting.git
-````
+```
 
 Install dependencies with
 
-````bash
+```bash
 $ pip install -r requirements.txt
-````
+```
 
 and install the package in development mode with
 
-````bash
+```bash
 $ python setup.py develop
-````
+```
 
 Depending on your system configuration,
 you may need to run the above command with `sudo`
@@ -164,31 +164,31 @@ may also be available via your system's package manager.
 
 Generate documentation with pdoc by running
 
-````bash
+```bash
 $ make docs
-````
+```
 
 ### Tests
 
 Run the tests with
 
-````bash
+```bash
 $ make tests
-````
+```
 
 ### Examples
 
 Run an example with
 
-````bash
+```bash
 $ python examples/example_fit.py
-````
+```
 
 or run all the examples with
 
-````bash
+```bash
 $ make examples
-````
+```
 
 ## License
 
