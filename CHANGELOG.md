@@ -1,5 +1,9 @@
 # Changelog
 
+## HEAD
+
+- Add twine and wheel as development dependencies.
+
 ## 0.2.0
 
 - Added figure subpackage (still in development).

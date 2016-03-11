@@ -5,3 +5,5 @@ numpy
 pdoc
 scipy
 sympy
+twine
+wheel
