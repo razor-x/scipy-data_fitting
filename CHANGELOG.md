@@ -2,6 +2,7 @@
 
 ## HEAD
 
+- Constrain lmfit version less than 0.9.0.
 - Add twine and wheel as development dependencies.
 
 ## 0.2.0
