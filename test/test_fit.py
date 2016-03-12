@@ -131,7 +131,7 @@ class TestFit():
             {'symbol': 'b', 'value': 5, 'prefix': 'milli'},
             {'symbol': 'c', 'value': 'Avogadro constant'},
         ]
-        eq_(fit.fixed_values, (3000, 4, 10, 0.005, 6.02214129e+23))
+        eq_(fit.fixed_values, (3000, 4, 10, 0.005, 6.022140857e+23))
 
     def test_function(self):
         fit = self.get_fit_for_fitting()

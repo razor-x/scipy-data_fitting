@@ -64,7 +64,7 @@ class TestData():
     def test_scale_with_mixed_gives_numbers(self):
         data = Data()
         data.scale = (2, 'Avogadro constant')
-        assert_almost_equal(data.scale, (2, 6.02214129e+23))
+        assert_array_almost_equal(data.scale, (2, 6.022140857e+23))
 
     def test_load_data(self):
         for data_file in self.data_files:
