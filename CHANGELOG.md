@@ -1,6 +1,6 @@
 # Changelog
 
-## HEAD
+## 0.2.5
 
 - Constrain lmfit version less than 0.9.0.
 - Add twine and wheel as development dependencies.
