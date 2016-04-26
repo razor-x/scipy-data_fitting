@@ -129,12 +129,12 @@ This change log follows the conventions of
 - Initial release.
 
 [Unreleased]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.5...HEAD
-[0.2.5]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.5...v0.2.4
-[0.2.4]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.4...v0.2.3
-[0.2.3]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.3...v0.2.2
-[0.2.2]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.2...v0.2.1
-[0.2.1]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.1...v0.2.0
-[0.2.0]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.0...v0.1.0
+[0.2.5]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.4...v0.2.5
+[0.2.4]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.3...v0.2.4
+[0.2.3]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.2...v0.2.3
+[0.2.2]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.1...v0.2.2
+[0.2.1]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/razor-x/scipy-data_fitting/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/razor-x/scipy-data_fitting/compare/v0.0.9...v0.1.0
 [0.0.9]: https://github.com/razor-x/scipy-data_fitting/compare/v0.0.8...v0.0.9
 [0.0.8]: https://github.com/razor-x/scipy-data_fitting/compare/v0.0.7...v0.0.8
