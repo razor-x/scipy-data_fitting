@@ -3,6 +3,12 @@ machine:
   python:
     version: 3.5.1
 
+test:
+  override:
+  # TODO: Uncomment when lint passes.
+  # - python setup.py lint
+    - python setup.py test
+
 deployment:
   codecov:
     branch: /.*/
