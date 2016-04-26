@@ -7,6 +7,16 @@ This change log follows the conventions of
 
 ## [Unreleased][Unreleased]
 
+### Changed
+
+- Updated package structure based on [makenew/python-package].
+- Add semver constraints to package dependencies.
+- Updated development tooling to handle new features.
+- Switched from Coveralls to Codecov.
+- Switched from Travis CI to CircleCI.
+
+[makenew/python-package]: https://github.com/makenew/python-package
+
 ## [0.2.5] / 2016-03-12
 
 ### Added
