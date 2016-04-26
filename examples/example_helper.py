@@ -1,6 +1,10 @@
 import json
 import os
 import shutil
+import sys
+
+sys.path.insert(0, os.path.abspath('.'))
+
 from scipy_data_fitting import Plot
 
 def save_example_fit(fit):
