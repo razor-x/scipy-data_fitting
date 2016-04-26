@@ -1,7 +1,7 @@
 Data Fitting with SciPy
 =======================
 
-|PyPI| |GitHub-license| |Requires.io| |Travis|
+|PyPI| |GitHub-license| |Requires.io| |Travis| |Coverage|
 
     Built from `makenew/python-package <https://github.com/makenew/python-package>`__.
 
@@ -17,6 +17,9 @@ Data Fitting with SciPy
 .. |Travis| image:: https://img.shields.io/travis/razor-x/scipy-data_fitting.svg
    :target: https://travis-ci.org/razor-x/scipy-data_fitting
    :alt: Travis
+.. |Coverage| image:: https://img.shields.io/codecov/c/github/razor-x/scipy-data_fitting.svg?maxAge=2592000
+   :target: https://codecov.io/gh/razor-x/scipy-data_fitting
+   :alt: Codecov
 
 Description
 -----------
