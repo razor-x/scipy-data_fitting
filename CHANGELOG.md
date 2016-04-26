@@ -7,6 +7,10 @@ This change log follows the conventions of
 
 ## [Unreleased][Unreleased]
 
+### Fixed
+
+- Fix README display on PyPI.
+
 ## [0.3.0] / 2016-04-26
 
 ### Changed

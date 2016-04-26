@@ -121,12 +121,12 @@ Controlling the fitting process
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The above example will fit the line using the default algorithm
-```scipy.optimize.curve_fit```_.
+``scipy.optimize.curve_fit``.
 
 For a linear fit, it may be more desirable to use a more efficient
 algorithm.
 
-For example, to use ```numpy.polyfit```_, one could set a
+For example, to use ``numpy.polyfit``, one could set a
 ``fit_function`` and allow both parameters to vary,
 
 .. code:: python
@@ -142,12 +142,9 @@ Controlling the fitting process this way allows, for example,
 incorporating error values and computing and returning goodness of fit
 information.
 
-See ```scipy_data_fitting.Fit.options```_ for further details on how to
+See ``scipy_data_fitting.Fit.options`` for further details on how to
 control the fit and also how to use `lmfit`_.
 
-.. _``scipy.optimize.curve_fit``: http://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html
-.. _``numpy.polyfit``: http://docs.scipy.org/doc/numpy/reference/generated/numpy.polyfit.html
-.. _``scipy_data_fitting.Fit.options``: http://packages.python.org/scipy-data_fitting/#scipy_data_fitting.Fit.options
 .. _lmfit: http://lmfit.github.io/lmfit-py/
 
 Development and Testing
@@ -206,7 +203,7 @@ Documentation
 
 Generate documentation with pdoc by running
 
-.. code::
+::
 
     $ make docs
 
@@ -215,13 +212,13 @@ Examples
 
 Run an example with
 
-.. code::
+::
 
     $ python examples/example_fit.py
 
 or run all the examples with
 
-.. code::
+::
 
     $ make examples
 
