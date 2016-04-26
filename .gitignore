@@ -6,7 +6,7 @@
 # https://github.com/github/gitignore
 
 # pdoc documentation
-doc/
+docs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
