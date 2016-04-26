@@ -7,6 +7,8 @@ This change log follows the conventions of
 
 ## [Unreleased][Unreleased]
 
+## [0.3.0] / 2016-04-26
+
 ### Changed
 
 - Updated package structure based on [makenew/python-package].
@@ -139,6 +141,7 @@ This change log follows the conventions of
 - Initial release.
 
 [Unreleased]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.5...HEAD
+[0.3.0]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.5...v0.3.0
 [0.2.5]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.4...v0.2.5
 [0.2.4]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.3...v0.2.4
 [0.2.3]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.2...v0.2.3
