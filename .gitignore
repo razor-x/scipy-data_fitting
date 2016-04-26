@@ -8,6 +8,11 @@
 # pdoc documentation
 docs/
 
+# Example output
+examples/fitalyzer/
+examples/json/
+examples/plots/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
