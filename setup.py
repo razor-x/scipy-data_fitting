@@ -22,8 +22,5 @@ setup(
         'numpy',
         'scipy',
         'sympy'
-    ],
-    tests_require = [
-        'nose'
     ]
 )

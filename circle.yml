@@ -3,6 +3,14 @@ machine:
   python:
     version: 3.5.1
 
+dependencies:
+  pre:
+    - pip install --upgrade pip
+  override:
+    - pip install numpy
+    - pip install scipy
+    - pip install -r requirements.devel.txt
+
 test:
   override:
   # TODO: Uncomment when lint passes.
