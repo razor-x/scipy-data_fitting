@@ -14,10 +14,10 @@ Data Fitting with SciPy
 .. |Requires.io| image:: https://img.shields.io/requires/github/razor-x/scipy-data_fitting.svg
    :target: https://requires.io/github/razor-x/scipy-data_fitting/requirements/
    :alt: Requires.io
-.. |CircleCI| image:: https://img.shields.io/circleci/project/razor-x/scipy-data_fitting.svg?maxAge=2592000
+.. |CircleCI| image:: https://img.shields.io/circleci/project/razor-x/scipy-data_fitting.svg
    :target: https://circleci.com/gh/razor-x/scipy-data_fitting
    :alt: CircleCI
-.. |Coverage| image:: https://img.shields.io/codecov/c/github/razor-x/scipy-data_fitting.svg?maxAge=2592000
+.. |Coverage| image:: https://img.shields.io/codecov/c/github/razor-x/scipy-data_fitting.svg
    :target: https://codecov.io/gh/razor-x/scipy-data_fitting
    :alt: Codecov
 
