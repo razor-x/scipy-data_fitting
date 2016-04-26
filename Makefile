@@ -8,8 +8,7 @@ examples:
 
 release: docs
 	@python setup.py sdist bdist_wheel
-	@python twine register dist/*
-	@python twine upload dist/*
+	@twine upload dist/*
 	@python setup.py upload_docs --upload-dir ./docs/scipy_data_fitting
 
 test:
