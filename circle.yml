@@ -12,13 +12,11 @@ dependencies:
     - pip install -qr requirements.devel.txt
 
 test:
+  pre:
+    - pip install codecov
   override:
   # TODO: Uncomment when lint passes.
   # - python setup.py lint
-    - python setup.py test
-
-deployment:
-  codecov:
-    branch: /.*/
-    commands:
-      - bash <(curl -s https://codecov.io/bash)
+    - python setup.py nosetests --with-coverage
+  post:
+    - codecov
