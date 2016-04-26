@@ -16,11 +16,11 @@ setup(
     description='Complete pipeline for easy data fitting with Python.',
     long_description=long_description,
     test_suite='nose',
-    install_requires = [
+    install_requires=[
         'lmfit>=0.8.0,<0.9.0',
-        'matplotlib',
-        'numpy',
-        'scipy',
-        'sympy'
+        'matplotlib>=1.5.0,<2.0.0',
+        'numpy>=1.10.0,<2.0.0',
+        'scipy>=0.17.0,<1.0.0',
+        'sympy>=1.0,<2.0'
     ]
 )
