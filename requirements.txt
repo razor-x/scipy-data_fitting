@@ -1,9 +1,5 @@
 lmfit>=0.8.0,<0.9.0
 matplotlib
-nose
 numpy
-pdoc
 scipy
 sympy
-twine
-wheel

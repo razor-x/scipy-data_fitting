@@ -1,52 +1,29 @@
-from setuptools import setup
-import os
-import subprocess
-import tempfile
+from setuptools import find_packages, setup
 
-description = 'Data fitting system with SciPy.'
-long_description = description
+from scipy_data_fitting import __version__
 
-try:
-    pandoc = subprocess.check_output(
-        ['which', 'pandoc'],
-        stderr=subprocess.STDOUT,
-        universal_newlines=True)
-except subprocess.CalledProcessError:
-    pandoc = None
-
-if pandoc and os.path.exists('README.md'):
-    temp_dir = tempfile.mkdtemp()
-    temp_path = os.path.join(temp_dir, 'README.md')
-
-    with open(temp_path, 'a') as f:
-        for line in open('README.md', 'r'):
-            # Remove lines that match Markdown images,
-            # they are not supported in `long_description`.
-            if not line.startswith('!['): f.write(line)
-
-    os.system('pandoc -s ' + temp_path + ' -t rst -o README.txt')
-    long_description = open('README.txt').read()
-    os.remove(temp_path)
-    os.rmdir(temp_dir)
+with open('README.rst', 'r') as f:
+    long_description = f.read()
 
 setup(
-    name = 'scipy-data_fitting',
-    version = '0.2.5',
-    author = 'Evan Sosenko',
-    author_email = 'razorx@evansosenko.com',
-    packages = ['scipy_data_fitting', 'scipy_data_fitting/figure'],
-    url = 'https://github.com/razor-x/scipy-data_fitting',
-    license = 'MIT License, see LICENSE.txt',
-    description = description,
-    long_description = long_description,
+    name='scipy-data_fitting',
+    version=__version__,
+    author='Evan Sosenko',
+    author_email='razorx@evansosenko.com',
+    packages=find_packages(exclude=['docs']),
+    url='https://github.com/razor-x/scipy-data_fitting',
+    license='MIT',
+    description='Complete pipeline for easy data fitting with Python.',
+    long_description=long_description,
+    test_suite='nose2.collector.collector',
     install_requires = [
         'lmfit>=0.8.0,<0.9.0',
         'matplotlib',
         'numpy',
         'scipy',
-        'sympy',
+        'sympy'
     ],
     tests_require = [
-        'nose',
-    ],
+        'nose2'
+    ]
 )

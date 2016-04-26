@@ -1,21 +1,14 @@
 language: python
+sudo: false
 python:
-  - "3.4"
+  - 3.5
 
-# Ensure runtime and build requirements are installed
-# for NumPy, SciPy, and matplotlib.
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get build-dep -qq python3-numpy python3-scipy python-matplotlib
-  - sudo apt-get install -qq python3-numpy python3-scipy python-matplotlib
-
-# Must install numpy and scipy separately.
 install:
-  - pip install -q numpy
-  - pip install -q scipy
-  - pip install -qr requirements.txt
-  - pip install -q coveralls
+  - pip install -r requirements.devel.txt
 
-script: coverage run --source=scipy_data_fitting setup.py nosetests
+script:
+  - python setup.py lint
+  - python setup.py test
 
-after_success: coveralls
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

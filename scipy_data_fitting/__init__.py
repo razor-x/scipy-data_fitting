@@ -1,6 +1,8 @@
 """
 **Data Fitting with SciPy**
 
+Complete pipeline for easy data fitting with Python.
+
 This package is registered on the Python Package Index (PyPI) at
 [pypi.python.org/pypi/scipy-data_fitting](https://pypi.python.org/pypi/scipy-data_fitting).
 
@@ -14,6 +16,7 @@ for more details about this package.
 There is also pdoc documentation for the [figure creation subpackage](figure).
 """
 
+from .version import __version__
 from .data import Data
 from .fit import Fit
 from .model import Model
