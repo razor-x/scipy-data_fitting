@@ -17,6 +17,6 @@ test:
   override:
   # TODO: Uncomment when lint passes.
   # - python setup.py lint
-    - python setup.py nosetests --with-coverage --cover-xml
+    - python setup.py nosetests --with-coverage --cover-xml --cover-package=scipy_data_fitting
   post:
     - codecov

@@ -12,7 +12,8 @@ release:
 	@python twine upload dist/*
 
 test:
-	@python setup.py nosetests --with-coverage --cover-html
+	@python setup.py nosetests --with-coverage --cover-html \
+		--cover-package=scipy_data_fitting
 
 serve:
 	@python server.py
