@@ -9,7 +9,7 @@ dependencies:
   override:
     - pip install numpy
     - pip install scipy
-    - pip install -r requirements.devel.txt
+    - pip install -qr requirements.devel.txt
 
 test:
   override:
