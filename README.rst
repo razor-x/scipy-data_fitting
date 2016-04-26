@@ -28,7 +28,7 @@ Description
 
 .. |figure| image:: https://raw.github.com/razor-x/scipy-data_fitting/master/plot.png
 
-Complete pipeline for easy data fitting with Python.
+Complete pipeline for easy data fitting with Python 3.
 
 Check out the `example fits on Fitalyzer`_.
 See the `Fitalyzer README`_ for details on how to use Fitalyzer for
