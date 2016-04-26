@@ -15,7 +15,7 @@ setup(
     license='MIT',
     description='Complete pipeline for easy data fitting with Python.',
     long_description=long_description,
-    test_suite='nose2.collector.collector',
+    test_suite='nose',
     install_requires = [
         'lmfit>=0.8.0,<0.9.0',
         'matplotlib',
@@ -24,6 +24,6 @@ setup(
         'sympy'
     ],
     tests_require = [
-        'nose2'
+        'nose'
     ]
 )
