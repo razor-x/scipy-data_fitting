@@ -24,7 +24,18 @@ Data Fitting with SciPy
 Description
 -----------
 
+|figure|
+
+.. |figure| image:: https://raw.github.com/razor-x/scipy-data_fitting/master/plot.png
+
 Complete pipeline for easy data fitting with Python.
+
+Check out the `example fits on Fitalyzer`_.
+See the `Fitalyzer README`_ for details on how to use Fitalyzer for
+visualizing your fits.
+
+.. _example fits on Fitalyzer: http://io.evansosenko.com/fitalyzer/?firebase=scipy-data-fitting
+.. _Fitalyzer README: https://github.com/razor-x/fitalyzer
 
 Installation
 ------------
@@ -55,6 +66,89 @@ Alternatively, install it directly using pip with
 
 .. _scipy_data_fitting: https://pypi.python.org/pypi/scipy-data_fitting
 .. _Python Package Index (PyPI): https://pypi.python.org/
+
+Documentation
+-------------
+
+Documentation is generated from source with `pdoc`_.
+The latest version is hosted at `pythonhosted.org/scipy-data\_fitting/`_.
+
+To get started quickly, check out the `examples`_.
+
+Then, refer to the source documentation for details on how to use each class.
+
+.. _pdoc: https://pypi.python.org/pypi/pdoc/
+.. _pythonhosted.org/scipy-data\_fitting/: https://pythonhosted.org/scipy-data_fitting/
+.. _examples: https://github.com/razor-x/scipy-data_fitting/tree/master/examples
+
+Basic Usage
+-----------
+
+.. code:: python
+
+    from scipy_data_fitting import Data, Model, Fit, Plot
+
+    # Load data from a CSV file.
+    data = Data('linear')
+    data.path = 'linear.csv'
+    data.error = (0.5, None)
+
+    # Create a linear model.
+    model = Model('linear')
+    model.add_symbols('t', 'v', 'x_0')
+    t, v, x_0 = model.get_symbols('t', 'v', 'x_0')
+    model.expressions['line'] = v * t + x_0
+
+    # Create the fit using the data and model.
+    fit = Fit('linear', data=data, model=model)
+    fit.expression = 'line'
+    fit.independent = {'symbol': 't', 'name': 'Time', 'units': 's'}
+    fit.dependent = {'name': 'Distance', 'units': 'm'}
+    fit.parameters = [
+        {'symbol': 'v', 'guess': 1, 'units': 'm/s'},
+        {'symbol': 'x_0', 'value': 1, 'units': 'm'},
+    ]
+
+    # Save the fit result to a json file.
+    fit.to_json(fit.name + '.json', meta=fit.metadata)
+
+    # Save a plot of the fit to an image file.
+    plot = Plot(fit)
+    plot.save(fit.name + '.svg')
+    plot.close()
+
+Controlling the fitting process
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The above example will fit the line using the default algorithm
+```scipy.optimize.curve_fit```_.
+
+For a linear fit, it may be more desirable to use a more efficient
+algorithm.
+
+For example, to use ```numpy.polyfit```_, one could set a
+``fit_function`` and allow both parameters to vary,
+
+.. code:: python
+
+    fit.parameters = [
+        {'symbol': 'v', 'guess': 1, 'units': 'm/s'},
+        {'symbol': 'x_0', 'guess': 1, 'units': 'm'},
+    ]
+    fit.options['fit_function'] = \
+        lambda f, x, y, p0, **op: (numpy.polyfit(x, y, 1), )
+
+Controlling the fitting process this way allows, for example,
+incorporating error values and computing and returning goodness of fit
+information.
+
+See ```scipy_data_fitting.Fit.options```_ for further details on how to
+control the fit and also how to use `lmfit`_.
+
+.. _``scipy.optimize.curve_fit``: http://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html
+.. _``numpy.polyfit``: http://docs.scipy.org/doc/numpy/reference/generated/numpy.polyfit.html
+.. _``scipy_data_fitting.Fit.options``: http://packages.python.org/scipy-data_fitting/#scipy_data_fitting.Fit.options
+.. _lmfit: http://lmfit.github.io/lmfit-py/
 
 Development and Testing
 -----------------------
@@ -100,6 +194,36 @@ Run tests with
 ::
 
     $ python setup.py test
+
+or
+
+::
+
+    $ make test
+
+Documentation
+~~~~~~~~~~~~~
+
+Generate documentation with pdoc by running
+
+.. code::
+
+    $ make docs
+
+Examples
+~~~~~~~~
+
+Run an example with
+
+.. code::
+
+    $ python examples/example_fit.py
+
+or run all the examples with
+
+.. code::
+
+    $ make examples
 
 Contributing
 ------------
