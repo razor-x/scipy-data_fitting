@@ -7,6 +7,10 @@ This change log follows the conventions of
 
 ## [Unreleased][Unreleased]
 
+### Added
+
+- Add pygments to development dependencies.
+
 ### Fixed
 
 - Fix README display on PyPI.
