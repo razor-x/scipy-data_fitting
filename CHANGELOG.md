@@ -17,6 +17,41 @@ This change log follows the conventions of
 
 - Constrain lmfit version less than 0.9.0.
 
+## 0.2.4 / 2014-04-06
+
+### Added
+
+- New README badges.
+- Code coverage reports.
+
+### Changed
+
+- README improvements.
+- Test improvements.
+
+## 0.2.3 / 2014-04-03
+
+### Added
+
+- Add scipy_data_fitting/figure to packages in setup.py.
+
+### Changed
+
+- Use relative import for core.
+- Added reference to GitHub’s .gitignore templates.
+
+## 0.2.2 / 2014-03-29
+
+### Added
+
+- Added lmfit to install_requires.
+
+## 0.2.1 / 2014-03-25
+
+### Fixed
+
+- Fixed error with docstring.
+
 ## 0.2.0 / 2014-03-25
 
 ### Added
@@ -49,6 +84,18 @@ This change log follows the conventions of
 
 - Fixed how meta works in `Fit.to_json`.
 
+## 0.0.6 / 2014-02-05
+
+### Fixed
+
+- Remove images from long_description.
+
+## 0.0.5 / 2014-02-05
+
+### Added
+
+- Added `Fit._function` for performance.
+
 ## 0.0.4 / 2014-02-04
 
 ### Added
@@ -66,6 +113,16 @@ This change log follows the conventions of
 ### Added
 
 - Added lmfit support.
+
+## 0.0.2 / 2014-01-30
+
+### Changed
+
+- Clean up tests.
+
+### Fixed
+
+- Added check for README.md in setup.py.
 
 ## 0.0.1 / 2014-01-29
 
