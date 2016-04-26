@@ -6,9 +6,10 @@ docs:
 examples:
 	@$(foreach x,$(wildcard examples/*.py),python $(x);)
 
-release: docs
-	@python setup.py sdist bdist_wheel upload
-	@python setup.py upload_docs --upload-dir ./docs/scipy_data_fitting
+release:
+	@python setup.py sdist bdist_wheel
+	@python twine register dist/*
+	@python twine upload dist/*
 
 test:
 	@python setup.py nosetests --with-coverage --cover-html
