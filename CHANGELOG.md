@@ -7,4 +7,4 @@ This change log follows the conventions of
 
 ## [Unreleased][Unreleased]
 
-[Unreleased]: https://github.com/makenew/python-package/compare/v0.0.0...HEAD
+[Unreleased]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.5...HEAD
