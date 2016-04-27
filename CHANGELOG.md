@@ -9,6 +9,7 @@ This change log follows the conventions of
 
 ### Added
 
+- Add coverage to development dependencies.
 - Add pygments to development dependencies.
 - Add docutils to development dependencies.
 
