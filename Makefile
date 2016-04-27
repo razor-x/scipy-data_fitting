@@ -20,4 +20,3 @@ serve:
 	@python server.py
 
 .PHONY: docs examples test
-
