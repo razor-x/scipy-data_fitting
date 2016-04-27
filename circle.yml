@@ -16,7 +16,7 @@ test:
     - pip install codecov
   override:
   # TODO: Uncomment when lint passes.
-  # - python setup.py lint
-    - python setup.py nosetests --with-coverage --cover-xml --cover-package=scipy_data_fitting
+  # - make lint
+    - make test
   post:
     - codecov

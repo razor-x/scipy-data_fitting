@@ -6,6 +6,9 @@ docs:
 examples:
 	@$(foreach x,$(wildcard examples/*.py),python $(x);)
 
+lint:
+	@python setup.py lint
+
 release: docs
 	@rm -rf build dist
 	@python setup.py sdist bdist_wheel
@@ -13,7 +16,8 @@ release: docs
 	@python setup.py upload_docs --upload-dir ./docs/scipy_data_fitting
 
 test:
-	@python setup.py nosetests --with-coverage --cover-html \
+	@python setup.py nosetests \
+		--with-coverage --cover-html --cover-xml \
 		--cover-package=scipy_data_fitting
 
 serve:
