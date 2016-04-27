@@ -203,8 +203,8 @@ class TestFit():
     def test_curve_fit_with_lmfit(self):
         fit = self.get_fit_for_fitting()
         fit.options['fit_function'] = 'lmfit'
-        assert_almost_equal(fit.curve_fit.values['p_00000'], 2.0)
-        assert_almost_equal(fit.curve_fit.values['p_00001'], 3.0)
+        assert_almost_equal(fit.curve_fit.params['p_00000'], 2.0)
+        assert_almost_equal(fit.curve_fit.params['p_00001'], 3.0)
 
     def test_fitted_paramters(self):
         fit = self.get_fit_for_fitting()

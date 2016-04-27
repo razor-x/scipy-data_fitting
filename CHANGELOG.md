@@ -7,6 +7,15 @@ This change log follows the conventions of
 
 ## [Unreleased][Unreleased]
 
+### Changed
+
+- [**Breaking**] Update Lmfit to 0.9.0.
+  Note that `Fit.curve_fit` returns the result from calling `lmfit.minimize`.
+  In Lmfit 0.9.0, this now returns the new `MinimizerResult` class.
+  See the [Version 0.9.0 Release Notes] for more information.
+
+[Version 0.9.0 Release Notes]: https://lmfit.github.io/lmfit-py/whatsnew.html#whatsnew-090-label
+
 ## [0.3.1] / 2016-04-26
 
 ### Added
