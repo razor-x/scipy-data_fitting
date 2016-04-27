@@ -1,7 +1,7 @@
 Data Fitting with SciPy
 =======================
 
-|PyPI| |GitHub-license| |Requires.io| |CircleCI| |Coverage|
+|PyPI| |GitHub-license| |Requires.io| |CircleCI| |Codecov|
 
     Built from `makenew/python-package <https://github.com/makenew/python-package>`__.
 
@@ -17,7 +17,7 @@ Data Fitting with SciPy
 .. |CircleCI| image:: https://img.shields.io/circleci/project/razor-x/scipy-data_fitting.svg
    :target: https://circleci.com/gh/razor-x/scipy-data_fitting
    :alt: CircleCI
-.. |Coverage| image:: https://img.shields.io/codecov/c/github/razor-x/scipy-data_fitting.svg
+.. |Codecov| image:: https://img.shields.io/codecov/c/github/razor-x/scipy-data_fitting.svg
    :target: https://codecov.io/gh/razor-x/scipy-data_fitting
    :alt: Codecov
 
