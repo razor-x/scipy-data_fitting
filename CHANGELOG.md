@@ -10,6 +10,7 @@ This change log follows the conventions of
 ### Added
 
 - Add pygments to development dependencies.
+- Add docutils to development dependencies.
 
 ### Fixed
 
