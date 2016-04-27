@@ -7,6 +7,8 @@ This change log follows the conventions of
 
 ## [Unreleased][Unreleased]
 
+## [1.0.0] / 2016-04-26
+
 ### Changed
 
 - [**Breaking**] Update Lmfit to 0.9.0.
@@ -161,7 +163,8 @@ This change log follows the conventions of
 
 - Initial release.
 
-[Unreleased]: https://github.com/razor-x/scipy-data_fitting/compare/v0.3.1...HEAD
+[Unreleased]: https://github.com/razor-x/scipy-data_fitting/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/razor-x/scipy-data_fitting/compare/v0.3.1...v1.0.0
 [0.3.1]: https://github.com/razor-x/scipy-data_fitting/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.5...v0.3.0
 [0.2.5]: https://github.com/razor-x/scipy-data_fitting/compare/v0.2.4...v0.2.5
