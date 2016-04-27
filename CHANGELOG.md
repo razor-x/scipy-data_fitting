@@ -54,7 +54,7 @@ This change log follows the conventions of
 
 - Add twine and wheel as development dependencies.
 
-## Changed
+### Changed
 
 - Constrain lmfit version less than 0.9.0.
 
