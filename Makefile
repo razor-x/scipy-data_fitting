@@ -7,6 +7,7 @@ examples:
 	@$(foreach x,$(wildcard examples/*.py),python $(x);)
 
 release: docs
+	@rm -rf build dist
 	@python setup.py sdist bdist_wheel
 	@twine upload dist/*
 	@python setup.py upload_docs --upload-dir ./docs/scipy_data_fitting

@@ -7,6 +7,10 @@ This change log follows the conventions of
 
 ## [Unreleased][Unreleased]
 
+### Fixed
+
+- Remove `build/` and `dist/` first in `make release`.
+
 ## [1.0.0] / 2016-04-26
 
 ### Changed
