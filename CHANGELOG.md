@@ -19,11 +19,11 @@ This change log follows the conventions of
 
 ### Changed
 
-- Updated package structure based on [makenew/python-package].
+- Update package structure based on [makenew/python-package].
 - Add semver constraints to package dependencies.
-- Updated development tooling to handle new features.
-- Switched from Coveralls to Codecov.
-- Switched from Travis CI to CircleCI.
+- Update development tooling to handle new features.
+- Switch from Coveralls to Codecov.
+- Switch from Travis CI to CircleCI.
 
 [makenew/python-package]: https://github.com/makenew/python-package
 
@@ -58,25 +58,25 @@ This change log follows the conventions of
 ### Changed
 
 - Use relative import for core.
-- Added reference to GitHub’s .gitignore templates.
+- Add reference to GitHub’s .gitignore templates.
 
 ## [0.2.2] / 2014-03-29
 
 ### Added
 
-- Added lmfit to install_requires.
+- Add lmfit to install_requires.
 
 ## [0.2.1] / 2014-03-25
 
 ### Fixed
 
-- Fixed error with docstring.
+- Fix error with docstring.
 
 ## [0.2.0] / 2014-03-25
 
 ### Added
 
-- Added figure subpackage (still in development).
+- Add figure subpackage (still in development).
 
 ## [0.1.0] / 2014-03-11
 
@@ -98,11 +98,11 @@ This change log follows the conventions of
 
 ### Added
 
-- Added support for errors and error bars.
+- Add support for errors and error bars.
 
 ### Fixed
 
-- Fixed how meta works in `Fit.to_json`.
+- Fix how meta works in `Fit.to_json`.
 
 ## [0.0.6] / 2014-02-05
 
@@ -114,15 +114,15 @@ This change log follows the conventions of
 
 ### Added
 
-- Added `Fit._function` for performance.
+- Add `Fit._function` for performance.
 
 ## [0.0.4] / 2014-02-04
 
 ### Added
 
-- Added basic examples.
+- Add basic examples.
 - Allow for the case where no fitting parameters are given.
-- Added option in Fit.to_json to omit metadata.
+- Add option in Fit.to_json to omit metadata.
 
 ### Changed
 
@@ -132,7 +132,7 @@ This change log follows the conventions of
 
 ### Added
 
-- Added lmfit support.
+- Add lmfit support.
 
 ## [0.0.2] / 2014-01-30
 
@@ -142,7 +142,7 @@ This change log follows the conventions of
 
 ### Fixed
 
-- Added check for README.md in setup.py.
+- Add check for README.md in setup.py.
 
 ## 0.0.1 / 2014-01-29
 
