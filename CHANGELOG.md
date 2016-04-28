@@ -7,6 +7,10 @@ This change log follows the conventions of
 
 ## [Unreleased][Unreleased]
 
+### Fixed
+
+- Fix how `Fit.fitted_parameters` returns tuple when using lmfit.
+
 ## [1.0.1] / 2016-04-26
 
 ### Fixed

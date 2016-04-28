@@ -645,7 +645,7 @@ class Fit:
         if hasattr(self,'_fitted_parameters'): return self._fitted_parameters
         if not self.fitting_parameters: return tuple()
         if self.options['fit_function'] == 'lmfit':
-            return tuple( self.curve_fit.params[key] for key in sorted(self.curve_fit.params) )
+            return tuple( self.curve_fit.params[key].value for key in sorted(self.curve_fit.params) )
         else:
             return tuple(self.curve_fit[0])
 
