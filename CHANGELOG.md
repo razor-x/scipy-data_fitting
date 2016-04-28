@@ -7,6 +7,8 @@ This change log follows the conventions of
 
 ## [Unreleased][Unreleased]
 
+## [1.0.2] / 2016-04-28
+
 ### Fixed
 
 - Fix how `Fit.fitted_parameters` returns tuple when using lmfit.
@@ -173,7 +175,8 @@ This change log follows the conventions of
 
 - Initial release.
 
-[Unreleased]: https://github.com/razor-x/scipy-data_fitting/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/razor-x/scipy-data_fitting/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/razor-x/scipy-data_fitting/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/razor-x/scipy-data_fitting/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/razor-x/scipy-data_fitting/compare/v0.3.1...v1.0.0
 [0.3.1]: https://github.com/razor-x/scipy-data_fitting/compare/v0.3.0...v0.3.1
